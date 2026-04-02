@@ -145,7 +145,33 @@
 
 <script src="courses.js"></script>
 <script src="courses-expanded.js"></script>
-<script>COURSES = expandCourses(COURSES);</script>
+<script src="courses-expanded-6-16.js"></script>
+<script>
+  // Apply all expansions
+  COURSES = expandCourses(COURSES);
+  // Apply additional expansions
+  const extra = getExpansions_6_16();
+  COURSES = COURSES.map(course => {
+    const exp = extra[course.id];
+    if (!exp || !exp.modules) return course;
+    return {
+      ...course,
+      modules: course.modules.map((mod, i) => {
+        const modExp = exp.modules[i];
+        if (!modExp) return mod;
+        const title = typeof mod === 'string' ? mod : mod.title;
+        return {
+          title: title,
+          overview: modExp.overview || (typeof mod === 'object' ? mod.overview : ''),
+          keyPoints: modExp.keyPoints || (typeof mod === 'object' ? mod.keyPoints : []),
+          narration: modExp.narration || (typeof mod === 'object' ? mod.narration : ''),
+          exercise: modExp.exercise || (typeof mod === 'object' ? mod.exercise : ''),
+          duration: modExp.duration || (typeof mod === 'object' ? mod.duration : '15 min')
+        };
+      })
+    };
+  });
+</script>
 <script src="voiceover.js"></script>
 <script src="app.js"></script>
 </body>
