@@ -18,7 +18,7 @@ const CATEGORIES = [
   { id: "spiritual", name: "Spiritual Growth", icon: "&#10024;", color: "#fcd34d", desc: "Explore meaning, purpose, and spiritual connection in recovery" }
 ];
 
-const COURSES = [
+let COURSES = [
   // ===== SUBSTANCE RECOVERY (8 courses) =====
   {
     id: 1, category: "substance", level: "Beginner",

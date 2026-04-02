@@ -280,6 +280,98 @@ a:hover { color: #a7f3d0; }
 .pres-btn:hover { background: rgba(110, 231, 183, 0.2); border-color: #6ee7b7; }
 .pres-progress { color: #64748b; font-size: 0.95rem; min-width: 100px; text-align: center; }
 
+/* ===== VOICE CONTROLS ===== */
+.pres-header-controls { display: flex; align-items: center; gap: 1rem; }
+.voice-controls {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.4rem 1rem; border-radius: 12px;
+  background: rgba(30, 30, 45, 0.8);
+  border: 1px solid rgba(110, 231, 183, 0.1);
+}
+.voice-btn {
+  background: rgba(110, 231, 183, 0.12); border: 1px solid rgba(110, 231, 183, 0.2);
+  color: #6ee7b7; padding: 0.4rem 0.8rem; border-radius: 8px;
+  cursor: pointer; font-size: 0.8rem; white-space: nowrap; transition: all 0.3s;
+}
+.voice-btn:hover { background: rgba(110, 231, 183, 0.25); }
+.voice-btn.voice-off { color: #64748b; border-color: rgba(100, 116, 139, 0.3); background: rgba(100, 116, 139, 0.1); }
+.voice-select {
+  background: rgba(20, 20, 35, 0.9); border: 1px solid rgba(110, 231, 183, 0.15);
+  color: #94a3b8; padding: 0.3rem 0.5rem; border-radius: 6px; font-size: 0.75rem;
+  max-width: 160px;
+}
+.voice-select option { background: #1a1a2e; }
+.voice-slider {
+  width: 60px; height: 4px; -webkit-appearance: none; appearance: none;
+  background: rgba(110, 231, 183, 0.2); border-radius: 2px; outline: none;
+}
+.voice-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: #6ee7b7; cursor: pointer;
+}
+.voice-label { color: #64748b; font-size: 0.75rem; min-width: 35px; }
+.voice-indicator {
+  display: flex; align-items: center; gap: 2px; height: 20px; padding: 0 4px;
+}
+.voice-indicator .wave {
+  width: 3px; height: 6px; background: #64748b; border-radius: 2px;
+  transition: all 0.3s;
+}
+.voice-indicator.speaking .wave {
+  background: #6ee7b7;
+  animation: waveAnim 0.8s ease-in-out infinite alternate;
+}
+.voice-indicator.speaking .wave:nth-child(2) { animation-delay: 0.2s; }
+.voice-indicator.speaking .wave:nth-child(3) { animation-delay: 0.4s; }
+@keyframes waveAnim {
+  0% { height: 6px; }
+  100% { height: 18px; }
+}
+.auto-advance-label {
+  color: #64748b; font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem; cursor: pointer;
+}
+.auto-advance-label input { accent-color: #6ee7b7; cursor: pointer; }
+
+/* ===== ENHANCED SLIDE CONTENT ===== */
+.pres-slide .slide-section {
+  max-width: 900px; width: 100%; text-align: left; margin-top: 2rem;
+}
+.pres-slide .key-point {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1rem 1.5rem; margin-bottom: 0.75rem; border-radius: 12px;
+  background: rgba(30, 30, 45, 0.6);
+  border-left: 3px solid #6ee7b7;
+}
+.pres-slide .key-point-num {
+  background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+  color: #0a0a0f; width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+}
+.pres-slide .key-point-text { color: #e0e0e0; font-size: 1.15rem; line-height: 1.6; }
+.pres-slide .exercise-box {
+  max-width: 800px; width: 100%; margin-top: 2rem;
+  padding: 2rem; border-radius: 16px;
+  background: linear-gradient(145deg, rgba(59, 130, 246, 0.08), rgba(110, 231, 183, 0.08));
+  border: 1px solid rgba(110, 231, 183, 0.15);
+  text-align: left;
+}
+.pres-slide .exercise-box h3 {
+  color: #6ee7b7; font-size: 1.1rem; margin-bottom: 0.75rem;
+}
+.pres-slide .exercise-box p { font-size: 1.15rem; color: #e0e0e0; }
+.pres-slide .narration-text {
+  max-width: 800px; margin-top: 1.5rem; padding: 1.5rem 2rem; border-radius: 12px;
+  background: rgba(110, 231, 183, 0.04);
+  border: 1px dashed rgba(110, 231, 183, 0.15);
+  color: #94a3b8; font-size: 1.05rem; font-style: italic; line-height: 1.8;
+  text-align: left;
+}
+.pres-slide .module-overview {
+  max-width: 800px; font-size: 1.25rem; color: #94a3b8; line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
 /* ===== ABOUT ===== */
 .about-content { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: start; }
 .about-text p { color: #94a3b8; margin-bottom: 1rem; font-size: 1.05rem; line-height: 1.8; }
