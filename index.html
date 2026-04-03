@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GetDeaddicted Academy - 100+ Recovery & Wellness Courses</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>GetDeaddicted Academy - Digital Wellness Courses</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,34 +14,34 @@
 <header class="hero" id="home">
   <nav class="nav">
     <div class="nav-brand">
-      <span class="logo-icon">&#9883;</span> GetDeaddicted Academy
+      <span class="logo-icon">&#9883;</span> <span class="brand-text">GetDeaddicted</span>
     </div>
-    <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#categories">Categories</a>
-      <a href="#courses">All Courses</a>
-      <a href="#about">About</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#home" onclick="closeNav()">Home</a>
+      <a href="#categories" onclick="closeNav()">Categories</a>
+      <a href="#courses" onclick="closeNav()">Courses</a>
+      <a href="#about" onclick="closeNav()">About</a>
     </div>
     <button class="nav-toggle" onclick="toggleNav()">&#9776;</button>
   </nav>
   <div class="hero-content">
-    <h1>Your Journey to Freedom Starts Here</h1>
-    <p class="hero-sub">100+ expert-designed courses for addiction recovery, mental wellness, and building the life you deserve.</p>
+    <h1>Take Back Your Screen Time</h1>
+    <p class="hero-sub">50 fun, kid-friendly courses to build healthy digital habits, beat phone addiction, and discover amazing things beyond the screen.</p>
     <div class="hero-stats">
-      <div class="stat"><span class="stat-num" id="courseCount">108</span><span class="stat-label">Courses</span></div>
-      <div class="stat"><span class="stat-num">15</span><span class="stat-label">Categories</span></div>
-      <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Lessons</span></div>
-      <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Access</span></div>
+      <div class="stat"><span class="stat-num">50</span><span class="stat-label">Courses</span></div>
+      <div class="stat"><span class="stat-num">10</span><span class="stat-label">Categories</span></div>
+      <div class="stat"><span class="stat-num">400+</span><span class="stat-label">Lessons</span></div>
+      <div class="stat"><span class="stat-num">All Ages</span><span class="stat-label">5 and Up</span></div>
     </div>
     <a href="#categories" class="btn btn-primary">Explore Courses</a>
-    <a href="#courses" class="btn btn-secondary">View All 108 Courses</a>
+    <a href="#courses" class="btn btn-secondary">View All 50 Courses</a>
   </div>
 </header>
 
 <!-- CATEGORY GRID -->
 <section class="section" id="categories">
   <h2 class="section-title">Course Categories</h2>
-  <p class="section-sub">Choose a path that resonates with your recovery journey</p>
+  <p class="section-sub">Pick a topic that matters to you</p>
   <div class="category-grid" id="categoryGrid"></div>
 </section>
 
@@ -58,7 +60,7 @@
       <option value="Advanced">Advanced</option>
     </select>
   </div>
-  <div class="course-count" id="filteredCount">Showing 108 courses</div>
+  <div class="course-count" id="filteredCount">Showing 50 courses</div>
   <div class="course-grid" id="courseGrid"></div>
 </section>
 
@@ -85,8 +87,8 @@
       <p id="modalAudience"></p>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary" onclick="startPresentation()">Start Presentation Mode</button>
-      <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+      <button class="btn btn-primary btn-full-mobile" onclick="startPresentation()">Start Presentation</button>
+      <button class="btn btn-secondary btn-full-mobile" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
@@ -94,27 +96,23 @@
 <!-- PRESENTATION MODE -->
 <div class="presentation" id="presentationMode">
   <div class="pres-header">
-    <span class="pres-brand"><span class="logo-icon">&#9883;</span> GetDeaddicted Academy</span>
-    <span class="pres-title" id="presTitle"></span>
+    <span class="pres-brand"><span class="logo-icon">&#9883;</span> <span class="hide-mobile">GetDeaddicted</span></span>
+    <span class="pres-title hide-mobile" id="presTitle"></span>
     <div class="pres-header-controls">
       <div class="voice-controls">
-        <button id="voiceToggle" class="voice-btn" onclick="voiceover.toggle()">&#128266; Voice On</button>
-        <button id="voicePlayPause" class="voice-btn" onclick="voiceover.togglePlayPause()">&#9654; Play</button>
-        <select id="voiceSelect" class="voice-select" onchange="voiceover.setVoice(this.value)"></select>
-        <input type="range" id="voiceSpeed" class="voice-slider" min="0.5" max="1.5" step="0.05" value="0.95"
-          oninput="voiceover.rate=parseFloat(this.value);document.getElementById('speedLabel').textContent=this.value+'x'" title="Speed">
-        <span id="speedLabel" class="voice-label">0.95x</span>
+        <button id="voiceToggle" class="voice-btn" onclick="voiceover.toggle()">&#128266;</button>
+        <button id="voicePlayPause" class="voice-btn" onclick="voiceover.togglePlayPause()">&#9654;</button>
         <div id="voiceIndicator" class="voice-indicator"><span class="wave"></span><span class="wave"></span><span class="wave"></span></div>
       </div>
-      <button class="pres-exit" onclick="exitPresentation()">Exit &times;</button>
+      <button class="pres-exit" onclick="exitPresentation()">&times;</button>
     </div>
   </div>
   <div class="pres-slide" id="presSlide"></div>
   <div class="pres-controls">
-    <button class="pres-btn" onclick="prevSlide()">&#8592; Previous</button>
+    <button class="pres-btn" onclick="prevSlide()">&#8592;</button>
     <span class="pres-progress" id="presProgress"></span>
-    <label class="auto-advance-label"><input type="checkbox" id="autoAdvance" checked> Auto-advance after narration</label>
-    <button class="pres-btn" onclick="nextSlide()">Next &#8594;</button>
+    <label class="auto-advance-label hide-mobile"><input type="checkbox" id="autoAdvance" checked> Auto-advance</label>
+    <button class="pres-btn" onclick="nextSlide()">&#8594;</button>
   </div>
 </div>
 
@@ -123,55 +121,27 @@
   <h2 class="section-title">About GetDeaddicted Academy</h2>
   <div class="about-content">
     <div class="about-text">
-      <p>GetDeaddicted Academy is a comprehensive learning platform dedicated to helping individuals overcome addiction, build resilience, and create meaningful lives in recovery.</p>
-      <p>Our 108 courses span 15 categories — from substance recovery and mental health to financial literacy, career rebuilding, and spiritual growth. Every course is designed with evidence-based practices, compassion, and real-world applicability.</p>
-      <p>Whether you're in early recovery or years into your journey, there's always something new to learn and a stronger version of yourself to become.</p>
+      <p>GetDeaddicted Academy helps people of all ages build a healthier relationship with screens, phones, and digital technology.</p>
+      <p>Our 50 courses cover everything from understanding how apps hook your brain to building amazing offline hobbies. Every course is designed to be fun, practical, and appropriate for ages 5 and up.</p>
+      <p>Whether you're a kid who can't put down the tablet, a teen glued to social media, or a parent looking for family solutions — we've got you covered.</p>
     </div>
     <div class="about-features">
-      <div class="feature"><span class="feature-icon">&#10003;</span> Evidence-based curriculum</div>
-      <div class="feature"><span class="feature-icon">&#10003;</span> Self-paced learning</div>
+      <div class="feature"><span class="feature-icon">&#10003;</span> Safe for all ages (5+)</div>
+      <div class="feature"><span class="feature-icon">&#10003;</span> Fun, engaging lessons</div>
+      <div class="feature"><span class="feature-icon">&#10003;</span> Voice narration built in</div>
       <div class="feature"><span class="feature-icon">&#10003;</span> Presentation-ready slides</div>
-      <div class="feature"><span class="feature-icon">&#10003;</span> Beginner to advanced tracks</div>
-      <div class="feature"><span class="feature-icon">&#10003;</span> 15 recovery categories</div>
-      <div class="feature"><span class="feature-icon">&#10003;</span> Continually updated content</div>
+      <div class="feature"><span class="feature-icon">&#10003;</span> 10 focused categories</div>
+      <div class="feature"><span class="feature-icon">&#10003;</span> Works on phone and desktop</div>
     </div>
   </div>
 </section>
 
 <footer class="footer">
   <p>&copy; 2026 GetDeaddicted LLC. All rights reserved.</p>
-  <p>Recovery is possible. You are not alone.</p>
+  <p>Your screen time, your rules.</p>
 </footer>
 
 <script src="courses.js"></script>
-<script src="courses-expanded.js"></script>
-<script src="courses-expanded-6-16.js"></script>
-<script>
-  // Apply all expansions
-  COURSES = expandCourses(COURSES);
-  // Apply additional expansions
-  const extra = getExpansions_6_16();
-  COURSES = COURSES.map(course => {
-    const exp = extra[course.id];
-    if (!exp || !exp.modules) return course;
-    return {
-      ...course,
-      modules: course.modules.map((mod, i) => {
-        const modExp = exp.modules[i];
-        if (!modExp) return mod;
-        const title = typeof mod === 'string' ? mod : mod.title;
-        return {
-          title: title,
-          overview: modExp.overview || (typeof mod === 'object' ? mod.overview : ''),
-          keyPoints: modExp.keyPoints || (typeof mod === 'object' ? mod.keyPoints : []),
-          narration: modExp.narration || (typeof mod === 'object' ? mod.narration : ''),
-          exercise: modExp.exercise || (typeof mod === 'object' ? mod.exercise : ''),
-          duration: modExp.duration || (typeof mod === 'object' ? mod.duration : '15 min')
-        };
-      })
-    };
-  });
-</script>
 <script src="voiceover.js"></script>
 <script src="app.js"></script>
 </body>

@@ -15,8 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Navigation ---
 function toggleNav() {
-  const links = document.querySelector('.nav-links');
-  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+  const links = document.getElementById('navLinks');
+  links.classList.toggle('open');
+}
+function closeNav() {
+  const links = document.getElementById('navLinks');
+  links.classList.remove('open');
 }
 
 // --- Category Rendering ---
@@ -384,3 +388,20 @@ function handleKeyboard(e) {
       break;
   }
 }
+
+// --- Touch/Swipe Support for Presentation ---
+let touchStartX = 0;
+let touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const pres = document.getElementById('presentationMode');
+  if (!pres.classList.contains('active')) return;
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  const dy = e.changedTouches[0].screenY - touchStartY;
+  if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+  if (dx < 0) nextSlide();
+  else prevSlide();
+}, { passive: true });
