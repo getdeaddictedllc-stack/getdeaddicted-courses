@@ -987,8 +987,10 @@ a:hover { color: #a7f3d0; }
   display: flex; align-items: center; gap: 0.8rem;
 }
 .quiz-option:hover {
-  border-color: rgba(110, 231, 183, 0.4);
-  background: rgba(30, 30, 45, 0.9);
+  border-color: rgba(110, 231, 183, 0.5);
+  background: rgba(110, 231, 183, 0.08);
+  transform: translateX(6px);
+  box-shadow: 0 2px 12px rgba(110, 231, 183, 0.1);
 }
 .quiz-option .opt-letter {
   width: 28px; height: 28px; border-radius: 50%;
@@ -1060,6 +1062,7 @@ a:hover { color: #a7f3d0; }
 /* ===== CLICK-TO-REVEAL KEY POINTS ===== */
 .key-point.revealable {
   cursor: pointer; transition: all 0.4s ease;
+  position: relative;
 }
 .key-point.revealable .key-point-text {
   filter: blur(6px);
@@ -1068,18 +1071,29 @@ a:hover { color: #a7f3d0; }
 }
 .key-point.revealable:hover {
   border-left-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  transform: translateX(4px);
 }
 .key-point.revealable::after {
-  content: 'Click to reveal';
+  content: 'Tap to reveal';
   position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
-  font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;
+  font-size: 0.7rem; color: #6ee7b7; text-transform: uppercase; letter-spacing: 1px;
   transition: opacity 0.3s;
+  background: rgba(110, 231, 183, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+.key-point.revealed {
+  cursor: default;
 }
 .key-point.revealed .key-point-text {
   filter: blur(0);
 }
 .key-point.revealed::after {
   opacity: 0;
+}
+.key-point.revealed:hover {
+  transform: none;
 }
 .key-point {
   position: relative;

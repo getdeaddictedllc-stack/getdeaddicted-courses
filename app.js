@@ -274,9 +274,9 @@ function renderSlide() {
   if (slide.narration && voiceover.enabled) {
     setTimeout(() => {
       voiceover.speak(slide.narration, () => {
-        // Auto-advance if enabled
+        // Auto-advance if enabled, but NOT on interactive slides (quiz, reflection)
         const autoAdvance = document.getElementById('autoAdvanceToggle');
-        if (autoAdvance && autoAdvance.checked && currentSlide < slides.length - 1) {
+        if (autoAdvance && autoAdvance.checked && currentSlide < slides.length - 1 && !slide.interactive) {
           setTimeout(() => nextSlide(), 1500);
         }
       });
@@ -393,7 +393,8 @@ function buildSlides(course, cat) {
               </div>
             </div>
           `,
-          narration: `Let's go through the key insights of ${mod.title}. ${mod.keyPoints.map((kp, j) => `Insight ${j + 1}: ${kp}`).join('. ')}.`
+          narration: `Let's go through the key insights of ${mod.title}. ${mod.keyPoints.map((kp, j) => `Insight ${j + 1}: ${kp}`).join('. ')}.`,
+          interactive: true
         });
 
         // Quiz slide after key insights
@@ -418,7 +419,8 @@ function buildSlides(course, cat) {
               </div>
             </div>
           `,
-          narration: `Time for a quick check! ${quizData.question} Take a moment to think about it and select your answer.`
+          narration: `Time for a quick check! ${quizData.question} Take a moment to think about it and select your answer.`,
+          interactive: true
         });
 
         // "Did You Know?" slide — pick the longest/most interesting key point
@@ -472,7 +474,8 @@ function buildSlides(course, cat) {
               </div>
             </div>
           `,
-          narration: `Take a moment to pause and reflect. ${reflectionQ} There's no right or wrong answer. Just think about it honestly. When you're ready, move on to the next slide.`
+          narration: `Take a moment to pause and reflect. ${reflectionQ} There's no right or wrong answer. Just think about it honestly. When you're ready, move on to the next slide.`,
+          interactive: true
         });
       }
 
