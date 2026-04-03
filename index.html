@@ -153,7 +153,17 @@
           <option value="large">Large</option>
         </select>
       </div>
+      <div class="setting-item">
+        <label>Course Buddy</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="avatarToggle" checked onchange="toggleAvatar()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
     </div>
+  </div>
+  <div class="avatar-container" id="avatarContainer">
+    <div id="avatarMount"></div>
   </div>
   <div class="pres-slide" id="presSlide"></div>
   <div class="pres-controls">
@@ -200,6 +210,7 @@
 <script src="exp-41-45.js"></script>
 <script src="exp-46-50.js"></script>
 <script src="voiceover.js"></script>
+<script src="avatar.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

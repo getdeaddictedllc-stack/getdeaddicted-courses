@@ -13,6 +13,10 @@ class VoiceOverEngine {
     this.voice = null;
     this.utterance = null;
     this.onEndCallback = null;
+    this.onViseme = null;           // callback: function(visemeName) called on each viseme change
+    this.onSpeakingChange = null;   // callback: function(isSpeaking) called on start/stop
+    this._boundaryFired = false;
+    this._fallbackInterval = null;
     this.voices = [];
     this._loadVoices();
     // Chrome loads voices async
@@ -98,6 +102,9 @@ class VoiceOverEngine {
   _speakChunks(chunks, index, onEnd) {
     if (index >= chunks.length) {
       this.speaking = false;
+      this._clearFallback();
+      this.onSpeakingChange?.(false);
+      this.onViseme?.('closed');
       this._updateUI();
       if (onEnd) onEnd();
       return;
@@ -109,7 +116,18 @@ class VoiceOverEngine {
     utterance.pitch = this.pitch;
     utterance.volume = this.volume;
 
+    utterance.onboundary = (event) => {
+      if (event.name === 'word' && this.onViseme) {
+        this._boundaryFired = true;
+        const text = chunks[index];
+        const word = text.substring(event.charIndex, event.charIndex + event.charLength);
+        const viseme = this._getVisemeForWord(word);
+        this.onViseme(viseme);
+      }
+    };
+
     utterance.onend = () => {
+      this._clearFallback();
       this._speakChunks(chunks, index + 1, onEnd);
     };
     utterance.onerror = (e) => {
@@ -117,20 +135,35 @@ class VoiceOverEngine {
         console.warn('Speech error:', e.error);
       }
       this.speaking = false;
+      this._clearFallback();
+      this.onSpeakingChange?.(false);
+      this.onViseme?.('closed');
       this._updateUI();
     };
 
     this.utterance = utterance;
     this.speaking = true;
     this.paused = false;
+    this._boundaryFired = false;
+    this.onSpeakingChange?.(true);
+    this.onViseme?.('open_small');
     this._updateUI();
     this.synth.speak(utterance);
+
+    // Android fallback: if no boundary events fire within 500ms, use fallback animation
+    setTimeout(() => {
+      if (this.speaking && !this._boundaryFired && this.onViseme) {
+        this._startFallbackAnimation(chunks[index]);
+      }
+    }, 500);
   }
 
   pause() {
     if (this.speaking && !this.paused) {
       this.synth.pause();
       this.paused = true;
+      this._clearFallback();
+      this.onViseme?.('closed');
       this._updateUI();
     }
   }
@@ -139,6 +172,7 @@ class VoiceOverEngine {
     if (this.paused) {
       this.synth.resume();
       this.paused = false;
+      this.onViseme?.('open_small');
       this._updateUI();
     }
   }
@@ -147,6 +181,9 @@ class VoiceOverEngine {
     this.synth.cancel();
     this.speaking = false;
     this.paused = false;
+    this._clearFallback();
+    this.onSpeakingChange?.(false);
+    this.onViseme?.('closed');
     this._updateUI();
   }
 
@@ -162,6 +199,56 @@ class VoiceOverEngine {
       this.resume();
     } else if (this.speaking) {
       this.pause();
+    }
+  }
+
+  _getVisemeForWord(word) {
+    if (!word) return 'closed';
+    const w = word.toLowerCase().trim();
+    if (!w) return 'closed';
+    const first = w[0];
+    const firstTwo = w.substring(0, 2);
+
+    // M/B/P sounds — lips pressed
+    if ('mbp'.includes(first)) return 'mm';
+
+    // OO/W sounds — rounded mouth
+    if ('ouw'.includes(first) || firstTwo === 'oo') return 'oo';
+
+    // EE/I/Y sounds — wide stretch
+    if ('eiy'.includes(first) || firstTwo === 'ee') return 'ee';
+
+    // A/H sounds — wide open
+    if ('ah'.includes(first)) return 'open_wide';
+
+    // Consonants — small open
+    if ('tdszjnlrcgkfvq'.includes(first)) return 'open_small';
+
+    // Default
+    return 'open_small';
+  }
+
+  _startFallbackAnimation(text) {
+    this._clearFallback();
+    const words = text.split(/\s+/);
+    let wordIndex = 0;
+    const msPerWord = 60000 / (this.rate * 150); // rough estimate
+
+    this._fallbackInterval = setInterval(() => {
+      if (wordIndex < words.length && this.speaking && !this.paused) {
+        const viseme = this._getVisemeForWord(words[wordIndex]);
+        this.onViseme?.(viseme);
+        wordIndex++;
+      } else {
+        this._clearFallback();
+      }
+    }, msPerWord);
+  }
+
+  _clearFallback() {
+    if (this._fallbackInterval) {
+      clearInterval(this._fallbackInterval);
+      this._fallbackInterval = null;
     }
   }
 

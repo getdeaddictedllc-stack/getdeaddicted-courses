@@ -218,10 +218,15 @@ function startPresentation() {
   }
 
   renderSlide();
+  initAvatar();
 }
 
 function exitPresentation() {
   voiceover.stop();
+  if (typeof Avatar !== 'undefined') {
+    Avatar.stopIdle();
+    Avatar.hide();
+  }
   document.getElementById('presentationMode').classList.remove('active');
   document.body.style.overflow = '';
 }
@@ -718,6 +723,36 @@ function setFontSize(size) {
   if (!slide) return;
   slide.classList.remove('font-small', 'font-medium', 'font-large');
   slide.classList.add('font-' + size);
+}
+
+// --- Avatar Integration ---
+function initAvatar() {
+  if (typeof Avatar !== 'undefined') {
+    Avatar.init('avatarMount');
+
+    // Wire up viseme callback
+    voiceover.onViseme = (viseme) => {
+      if (Avatar.visible) Avatar.setViseme(viseme);
+    };
+
+    // Wire up speaking state
+    voiceover.onSpeakingChange = (isSpeaking) => {
+      if (Avatar.visible) {
+        Avatar.setSpeaking(isSpeaking);
+      }
+    };
+  }
+}
+
+function toggleAvatar() {
+  const toggle = document.getElementById('avatarToggle');
+  if (typeof Avatar !== 'undefined') {
+    if (toggle && toggle.checked) {
+      Avatar.show();
+    } else {
+      Avatar.hide();
+    }
+  }
 }
 
 // --- Keyboard Navigation ---
