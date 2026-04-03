@@ -5,8 +5,38 @@ let currentCourse = null;
 let currentSlide = 0;
 let slides = [];
 
+// --- Merge expansion data into COURSES ---
+function mergeExpansionData() {
+  const expFunctions = [
+    typeof getExp_1_5 === 'function' && getExp_1_5,
+    typeof getExp_6_10 === 'function' && getExp_6_10,
+    typeof getExp_11_15 === 'function' && getExp_11_15,
+    typeof getExp_16_20 === 'function' && getExp_16_20,
+    typeof getExp_21_25 === 'function' && getExp_21_25,
+    typeof getExp_26_30 === 'function' && getExp_26_30,
+    typeof getExp_31_35 === 'function' && getExp_31_35,
+    typeof getExp_36_40 === 'function' && getExp_36_40,
+    typeof getExp_41_45 === 'function' && getExp_41_45,
+    typeof getExp_46_50 === 'function' && getExp_46_50
+  ].filter(Boolean);
+
+  expFunctions.forEach(fn => {
+    const data = fn();
+    Object.entries(data).forEach(([id, expanded]) => {
+      const course = COURSES.find(c => c.id === Number(id));
+      if (!course) return;
+      if (expanded.introduction) course.introduction = expanded.introduction;
+      if (expanded.detailedOutcomes) course.detailedOutcomes = expanded.detailedOutcomes;
+      if (expanded.modules && Array.isArray(expanded.modules)) {
+        course.modules = expanded.modules;
+      }
+    });
+  });
+}
+
 // --- Initialize ---
 document.addEventListener('DOMContentLoaded', () => {
+  mergeExpansionData();
   renderCategories();
   renderCourses(COURSES);
   populateCategoryFilter();
