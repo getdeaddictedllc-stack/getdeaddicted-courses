@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <title>GetDeaddicted Academy - Digital Wellness Courses</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="is-loading">
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner">
+    <span class="logo-icon" style="font-size:2.5rem;">&#9883;</span>
+    <p class="loading-text">Loading courses...</p>
+    <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  </div>
+</div>
 
 <!-- HERO / LANDING -->
 <header class="hero" id="home">
@@ -22,7 +31,7 @@
       <a href="#courses" onclick="closeNav()">Courses</a>
       <a href="#about" onclick="closeNav()">About</a>
     </div>
-    <button class="nav-toggle" onclick="toggleNav()">&#9776;</button>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation menu">&#9776;</button>
   </nav>
   <div class="hero-content">
     <h1>Take Back Your Screen Time</h1>
@@ -33,8 +42,9 @@
       <div class="stat"><span class="stat-num">400+</span><span class="stat-label">Lessons</span></div>
       <div class="stat"><span class="stat-num">All Ages</span><span class="stat-label">5 and Up</span></div>
     </div>
-    <a href="#categories" class="btn btn-primary">Explore Courses</a>
-    <a href="#courses" class="btn btn-secondary">View All 50 Courses</a>
+    <a href="#courses" class="btn btn-primary btn-hero-cta">Start Learning Free</a>
+    <a href="#categories" class="btn btn-secondary">Explore Categories</a>
+    <p class="hero-trust">No credit card required &middot; 50 courses included &middot; Cancel anytime</p>
   </div>
 </header>
 
@@ -65,9 +75,9 @@
 </section>
 
 <!-- COURSE DETAIL MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
     <div class="modal-header" id="modalHeader">
       <span class="modal-category" id="modalCategory"></span>
       <h2 id="modalTitle"></h2>
@@ -99,20 +109,57 @@
     <span class="pres-brand"><span class="logo-icon">&#9883;</span> <span class="hide-mobile">GetDeaddicted</span></span>
     <span class="pres-title hide-mobile" id="presTitle"></span>
     <div class="pres-header-controls">
-      <div class="voice-controls">
-        <button id="voiceToggle" class="voice-btn" onclick="voiceover.toggle()">&#128266;</button>
-        <button id="voicePlayPause" class="voice-btn" onclick="voiceover.togglePlayPause()">&#9654;</button>
-        <div id="voiceIndicator" class="voice-indicator"><span class="wave"></span><span class="wave"></span><span class="wave"></span></div>
+      <div id="voiceIndicator" class="voice-indicator"><span class="wave"></span><span class="wave"></span><span class="wave"></span></div>
+      <button class="settings-btn" onclick="toggleSettings()" title="Settings">&#9881;</button>
+      <button class="pres-exit" onclick="exitPresentation()" aria-label="Exit presentation">&times;</button>
+    </div>
+  </div>
+  <div class="settings-overlay" id="settingsOverlay" onclick="toggleSettings()"></div>
+  <div class="settings-panel" id="settingsPanel">
+    <div class="settings-header">
+      <h3>Settings</h3>
+      <button onclick="toggleSettings()" class="settings-close">&times;</button>
+    </div>
+    <div class="settings-body">
+      <div class="setting-item">
+        <label>Voice Narration</label>
+        <button id="voiceToggleBtn" onclick="voiceover.toggle()">Enable Voice</button>
       </div>
-      <button class="pres-exit" onclick="exitPresentation()">&times;</button>
+      <div class="setting-item">
+        <label>Playback</label>
+        <button id="voicePlayPauseBtn" onclick="voiceover.togglePlayPause()">Pause</button>
+      </div>
+      <div class="setting-item">
+        <label>Auto-Advance Slides</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="autoAdvanceToggle" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <label>Narration Speed</label>
+        <select id="narrationSpeed" onchange="setNarrationSpeed(this.value)">
+          <option value="0.75">Slow</option>
+          <option value="1" selected>Normal</option>
+          <option value="1.25">Fast</option>
+          <option value="1.5">Very Fast</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <label>Font Size</label>
+        <select id="fontSize" onchange="setFontSize(this.value)">
+          <option value="small">Small</option>
+          <option value="medium" selected>Normal</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
     </div>
   </div>
   <div class="pres-slide" id="presSlide"></div>
   <div class="pres-controls">
-    <button class="pres-btn" onclick="prevSlide()">&#8592;</button>
-    <span class="pres-progress" id="presProgress"></span>
-    <label class="auto-advance-label hide-mobile"><input type="checkbox" id="autoAdvance" checked> Auto-advance</label>
-    <button class="pres-btn" onclick="nextSlide()">&#8594;</button>
+    <button class="pres-btn" onclick="prevSlide()" aria-label="Previous slide">&#8592;</button>
+    <span class="pres-progress" id="presProgress" aria-live="polite"></span>
+    <button class="pres-btn" onclick="nextSlide()" aria-label="Next slide">&#8594;</button>
   </div>
 </div>
 

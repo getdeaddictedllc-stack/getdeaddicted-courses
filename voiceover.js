@@ -166,19 +166,19 @@ class VoiceOverEngine {
   }
 
   _updateUI() {
-    const btn = document.getElementById('voiceToggle');
+    const btn = document.getElementById('voiceToggleBtn');
     if (btn) {
-      btn.textContent = this.enabled ? '🔊 Voice On' : '🔇 Voice Off';
+      btn.textContent = this.enabled ? 'Disable Voice' : 'Enable Voice';
       btn.classList.toggle('voice-off', !this.enabled);
     }
-    const playBtn = document.getElementById('voicePlayPause');
+    const playBtn = document.getElementById('voicePlayPauseBtn');
     if (playBtn) {
       if (this.paused) {
-        playBtn.textContent = '▶ Resume';
+        playBtn.textContent = 'Resume';
       } else if (this.speaking) {
-        playBtn.textContent = '⏸ Pause';
+        playBtn.textContent = 'Pause';
       } else {
-        playBtn.textContent = '▶ Play';
+        playBtn.textContent = 'Play';
       }
     }
     const indicator = document.getElementById('voiceIndicator');
