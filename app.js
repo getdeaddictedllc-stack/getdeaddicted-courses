@@ -202,6 +202,7 @@ function startPresentation() {
   slides = buildSlides(currentCourse, cat);
   currentSlide = 0;
   slideDirection = 'forward';
+  voiceover.setCourse(currentCourse.id);
   celebratedMilestones = new Set();
 
   document.getElementById('presTitle').textContent = currentCourse.title;
@@ -271,6 +272,7 @@ function renderSlide() {
   checkMilestoneCelebration();
 
   // Auto-narrate
+  voiceover.setSlideIndex(currentSlide);
   if (slide.narration && voiceover.enabled) {
     setTimeout(() => {
       voiceover.speak(slide.narration, () => {

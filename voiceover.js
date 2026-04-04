@@ -1,5 +1,5 @@
 // ===== GETDEADDICTED ACADEMY — VOICEOVER ENGINE =====
-// Uses Web Speech API for text-to-speech narration
+// Uses ElevenLabs pre-rendered MP3s (realistic) with Web Speech API fallback (robotic)
 
 class VoiceOverEngine {
   constructor() {
@@ -18,11 +18,105 @@ class VoiceOverEngine {
     this._boundaryFired = false;
     this._fallbackInterval = null;
     this.voices = [];
+
+    // MP3 audio support
+    this._audio = null;              // Current Audio element for MP3 playback
+    this._audioManifest = null;      // Loaded manifest.json
+    this._currentCourseId = null;    // Current course ID for MP3 lookup
+    this._currentSlideIndex = 0;     // Current slide index for MP3 lookup
+    this._useMP3 = true;             // Prefer MP3 over Web Speech API
+    this._loadManifest();
+
     this._loadVoices();
     // Chrome loads voices async
     if (this.synth.onvoiceschanged !== undefined) {
       this.synth.onvoiceschanged = () => this._loadVoices();
     }
+  }
+
+  // ─── MP3 Support ──────────────────────────────────────────────────────
+
+  _loadManifest() {
+    fetch('audio/manifest.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        this._audioManifest = data;
+        console.log('[VoiceOver] MP3 manifest loaded —', Object.keys(data || {}).length, 'courses available');
+      })
+      .catch(() => {
+        console.log('[VoiceOver] No MP3 manifest found, using Web Speech API only');
+        this._audioManifest = null;
+      });
+  }
+
+  setCourse(courseId) {
+    this._currentCourseId = courseId;
+    this._currentSlideIndex = 0;
+  }
+
+  setSlideIndex(index) {
+    this._currentSlideIndex = index;
+  }
+
+  _getMP3Path() {
+    if (!this._audioManifest || !this._currentCourseId) return null;
+    const courseSlides = this._audioManifest[this._currentCourseId];
+    if (!courseSlides) return null;
+    const slide = courseSlides[this._currentSlideIndex];
+    if (!slide) return null;
+    return 'audio/' + slide.file;
+  }
+
+  _speakMP3(mp3Path, onEnd) {
+    this.stop(); // Stop any current playback
+
+    this._audio = new Audio(mp3Path);
+    this._audio.volume = this.volume;
+
+    this._audio.onplay = () => {
+      this.speaking = true;
+      this.paused = false;
+      this.onSpeakingChange?.(true);
+      this.onViseme?.('open_small');
+      this._startFallbackAnimationForAudio();
+      this._updateUI();
+    };
+
+    this._audio.onended = () => {
+      this.speaking = false;
+      this._clearFallback();
+      this.onSpeakingChange?.(false);
+      this.onViseme?.('closed');
+      this._updateUI();
+      if (onEnd) onEnd();
+    };
+
+    this._audio.onerror = () => {
+      console.warn('[VoiceOver] MP3 failed to load, falling back to Web Speech API');
+      this._audio = null;
+      // Fallback to Web Speech API — call the original speak logic
+      this._speakWebSpeech(null, onEnd);
+    };
+
+    this._audio.play().catch(() => {
+      // Autoplay blocked — try on next user interaction
+      console.warn('[VoiceOver] Autoplay blocked for MP3');
+      this._audio = null;
+      this._speakWebSpeech(null, onEnd);
+    });
+  }
+
+  _startFallbackAnimationForAudio() {
+    this._clearFallback();
+    if (!this.onViseme) return;
+    const visemes = ['open_small', 'ee', 'open_wide', 'oo', 'mm', 'open_small'];
+    let i = 0;
+    this._fallbackInterval = setInterval(() => {
+      if (this.speaking && !this.paused) {
+        this.onViseme(visemes[i % visemes.length]);
+        i++;
+      }
+    }, 150);
   }
 
   _loadVoices() {
@@ -74,6 +168,24 @@ class VoiceOverEngine {
     }
     this.stop();
 
+    // Try MP3 first (ElevenLabs realistic voice)
+    if (this._useMP3) {
+      const mp3Path = this._getMP3Path();
+      if (mp3Path) {
+        this._speakMP3(mp3Path, onEnd);
+        return;
+      }
+    }
+
+    // Fallback: Web Speech API
+    this._speakWebSpeech(text, onEnd);
+  }
+
+  _speakWebSpeech(text, onEnd) {
+    if (!text) {
+      if (onEnd) onEnd();
+      return;
+    }
     // Split long text into chunks for reliability (some browsers cap at ~300 chars)
     const chunks = this._splitText(text);
     this._speakChunks(chunks, 0, onEnd);
@@ -160,7 +272,11 @@ class VoiceOverEngine {
 
   pause() {
     if (this.speaking && !this.paused) {
-      this.synth.pause();
+      if (this._audio) {
+        this._audio.pause();
+      } else {
+        this.synth.pause();
+      }
       this.paused = true;
       this._clearFallback();
       this.onViseme?.('closed');
@@ -170,7 +286,11 @@ class VoiceOverEngine {
 
   resume() {
     if (this.paused) {
-      this.synth.resume();
+      if (this._audio) {
+        this._audio.play();
+      } else {
+        this.synth.resume();
+      }
       this.paused = false;
       this.onViseme?.('open_small');
       this._updateUI();
@@ -178,6 +298,11 @@ class VoiceOverEngine {
   }
 
   stop() {
+    if (this._audio) {
+      this._audio.pause();
+      this._audio.currentTime = 0;
+      this._audio = null;
+    }
     this.synth.cancel();
     this.speaking = false;
     this.paused = false;
