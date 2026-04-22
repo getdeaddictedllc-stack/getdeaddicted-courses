@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<title>Founding Family Lifetime Deposit — GetDeaddicted Academy</title>
+<meta name="description" content="First 500 families only. Get lifetime access to all 50 digital wellness courses for a one-time ₹499 / $9 deposit. Locks in voice narration + future avatar + future course releases forever.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://academy.getdeaddicted.com/founding.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Founding Family — Lifetime Access for ₹499 / $9">
+<meta property="og:description" content="Limited to the first 500 families. One deposit, lifetime access to every course we build.">
+<meta property="og:url" content="https://academy.getdeaddicted.com/founding.html">
+<meta property="og:image" content="https://academy.getdeaddicted.com/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Founding Family — Lifetime Access for ₹499 / $9">
+<meta name="twitter:description" content="First 500 families only. One deposit, lifetime access.">
+
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6ee7b7">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+/* Founding-page-specific styles. Shares design tokens with main styles.css. */
+.founding-hero {
+  padding: 80px 20px 40px;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.founding-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  color: #0a0a0f;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.founding-title {
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.founding-sub {
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: #cbd5e1;
+  max-width: 680px;
+  margin: 0 auto 32px;
+  line-height: 1.55;
+}
+.founding-price-card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 36px 28px;
+  background: linear-gradient(180deg, rgba(110,231,183,0.08), rgba(59,130,246,0.08));
+  border: 2px solid rgba(110,231,183,0.35);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+}
+.founding-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.founding-price-amount {
+  font-size: clamp(2.8rem, 8vw, 4.2rem);
+  font-weight: 800;
+  color: #6ee7b7;
+  letter-spacing: -2px;
+}
+.founding-price-strike {
+  font-size: 1.1rem;
+  color: #64748b;
+  text-decoration: line-through;
+}
+.founding-price-note {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin-bottom: 26px;
+}
+.founding-scarcity {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 14px 16px;
+  background: rgba(251,191,36,0.08);
+  border: 1px solid rgba(251,191,36,0.25);
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+.founding-scarcity-num {
+  font-weight: 800;
+  color: #fbbf24;
+  font-size: 1.3rem;
+  display: block;
+}
+.founding-cta {
+  width: 100%;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+  color: #0a0a0f;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.founding-cta:hover { transform: translateY(-2px); }
+.founding-cta:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.founding-secure {
+  text-align: center;
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 14px;
+}
+.founding-benefits {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+.founding-benefits h2 {
+  text-align: center;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  margin-bottom: 28px;
+}
+.founding-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.founding-benefit {
+  padding: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+}
+.founding-benefit-icon { font-size: 1.6rem; margin-bottom: 10px; }
+.founding-benefit h3 { font-size: 1rem; margin: 0 0 6px; color: #6ee7b7; }
+.founding-benefit p { font-size: 0.9rem; color: #94a3b8; margin: 0; line-height: 1.5; }
+.founding-social {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+.founding-social-avatars {
+  display: flex;
+  justify-content: center;
+  gap: -10px;
+  margin-bottom: 14px;
+}
+.founding-social-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+  border: 2px solid #0a0a0f;
+  margin-left: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #0a0a0f;
+}
+.founding-social-avatar:first-child { margin-left: 0; }
+.founding-testimonial {
+  max-width: 640px;
+  margin: 20px auto;
+  padding: 20px;
+  font-style: italic;
+  color: #cbd5e1;
+}
+.founding-back { text-align: center; padding: 30px 20px; }
+.founding-back a { color: #6ee7b7; text-decoration: none; font-size: 0.9rem; }
+.founding-success {
+  max-width: 540px;
+  margin: 40px auto;
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(110,231,183,0.12), rgba(59,130,246,0.12));
+  border: 2px solid #6ee7b7;
+  border-radius: 20px;
+  text-align: center;
+}
+.founding-success h2 { color: #6ee7b7; margin: 0 0 12px; }
+.wa-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  background: #25d366;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 16px;
+}
+.wa-share-btn:hover { background: #1fb85a; }
+</style>
+</head>
+<body>
+
+<main>
+  <section class="founding-hero">
+    <span class="founding-tag" id="foundingTag">Founding Family — First 500 Only</span>
+    <h1 class="founding-title" id="foundingTitle">Lifetime access. One deposit. No subscription.</h1>
+    <p class="founding-sub" id="foundingSub">
+      We're letting the first 500 families lock in forever access to GetDeaddicted Academy —
+      all 50 courses, the new AI-voice narration, the animated coach avatar, and every
+      future course release — for the price of one family dinner.
+    </p>
+
+    <div class="founding-price-card">
+      <div class="founding-price-row">
+        <span class="founding-price-amount" id="foundingPrice">₹499</span>
+        <span class="founding-price-strike" id="foundingStrike">₹9,999</span>
+      </div>
+      <p class="founding-price-note" id="foundingPriceNote">One-time deposit · Lifetime access · No renewals</p>
+
+      <div class="founding-scarcity">
+        <div>
+          <span class="founding-scarcity-num" id="foundingSpotsLeft">—</span>
+          <span>spots left of 500</span>
+        </div>
+        <div>
+          <span class="founding-scarcity-num" id="foundingTimeLeft">—</span>
+          <span>until deal ends</span>
+        </div>
+      </div>
+
+      <button class="founding-cta" id="foundingCta" onclick="Founding.checkout()">
+        Claim Your Spot — <span id="foundingCtaPrice">₹499</span>
+      </button>
+      <p class="founding-secure">
+        🔒 Secure payment by Razorpay (India) · Stripe (global) · Cancel risk-free within 14 days
+      </p>
+    </div>
+  </section>
+
+  <section class="founding-social">
+    <div class="founding-social-avatars" aria-hidden="true">
+      <div class="founding-social-avatar">S</div>
+      <div class="founding-social-avatar">R</div>
+      <div class="founding-social-avatar">A</div>
+      <div class="founding-social-avatar">M</div>
+      <div class="founding-social-avatar">+</div>
+    </div>
+    <p style="color:#94a3b8;font-size:0.9rem;">Joined by <strong id="foundingJoinedCount">37</strong> families this week</p>
+    <blockquote class="founding-testimonial">
+      "My 9-year-old now sets her own screen time limits. She told ME to put my phone down at dinner.
+      Best ₹499 we ever spent." — Priya S., Pune
+    </blockquote>
+  </section>
+
+  <section class="founding-benefits">
+    <h2>What's included — forever</h2>
+    <div class="founding-benefits-grid">
+      <div class="founding-benefit">
+        <div class="founding-benefit-icon">📚</div>
+        <h3>All 50 courses</h3>
+        <p>3,205 interactive slides across 10 categories. Screen addiction, focus, gaming, safety, mindfulness, and more.</p>
+      </div>
+      <div class="founding-benefit">
+        <div class="founding-benefit-icon">🎙️</div>
+        <h3>Real human AI voice</h3>
+        <p>ElevenLabs-powered narration that actually sounds warm — not the robotic browser voice.</p>
+      </div>
+      <div class="founding-benefit">
+        <div class="founding-benefit-icon">👧</div>
+        <h3>Talking avatar coach</h3>
+        <p>Animated SVG mentor with lip-sync that walks your kid through every lesson.</p>
+      </div>
+      <div class="founding-benefit">
+        <div class="founding-benefit-icon">👨‍👩‍👧‍👦</div>
+        <h3>Up to 5 family profiles</h3>
+        <p>Each child gets their own progress, badges, and recommendations.</p>
+      </div>
+      <div class="founding-benefit">
+        <div class="founding-benefit-icon">🏆</div>
+        <h3>Badges & certificates</h3>
+        <p>12 achievement badges, downloadable completion certificates, daily streaks.</p>
+      </div>
+      <div class="founding-benefit">
+        <div class="founding-benefit-icon">🔮</div>
+        <h3>Every future release</h3>
+        <p>Hindi, Marathi, Spanish translations coming. All included — forever, no upgrade fees.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="founding-back">
+    <a href="/">← Back to Academy</a>
+  </div>
+</main>
+
+<!-- Post-payment success card, hidden until after checkout -->
+<div class="founding-success" id="foundingSuccess" style="display:none;">
+  <h2>🎉 You're in! Welcome, Founding Family.</h2>
+  <p>All 50 courses are unlocked on your account. We just emailed your receipt.</p>
+  <p style="margin-top:16px;font-size:0.9rem;color:#94a3b8;">
+    Tell 3 parent friends and we'll send you a printable wellness poster as a thank-you.
+  </p>
+  <a class="wa-share-btn" id="waShareBtn" href="#" target="_blank" rel="noopener">
+    📱 Share on WhatsApp
+  </a>
+</div>
+
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="analytics.js"></script>
+<script src="i18n.js"></script>
+<script src="paywall.js"></script>
+<script src="founding.js"></script>
+<script>
+  if (typeof I18n !== 'undefined') I18n.init();
+  Founding.init();
+</script>
+
+</body>
+</html>

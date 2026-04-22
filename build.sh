@@ -29,6 +29,7 @@ JS_FILES=(
   courses.js
   exp-1-5.js exp-6-10.js exp-11-15.js exp-16-20.js exp-21-25.js
   exp-26-30.js exp-31-35.js exp-36-40.js exp-41-45.js exp-46-50.js
+  config.js
   i18n.js loader.js
   auth.js progress.js paywall.js dashboard.js
   certificate.js coach.js referral.js onboarding.js
@@ -130,6 +131,18 @@ cp sitemap.xml "$DIST/"
 cp robots.txt "$DIST/"
 cp 404.html "$DIST/" 2>/dev/null || true
 cp vercel.json "$DIST/" 2>/dev/null || true
+
+# Standalone Founding Family landing page (loads its own minimal deps)
+if [ -f founding.html ]; then
+  cp founding.html "$DIST/"
+  cp config.js "$DIST/"
+  cp auth.js "$DIST/"
+  cp i18n.js "$DIST/"
+  cp analytics.js "$DIST/"
+  cp paywall.js "$DIST/"
+  cp founding.js "$DIST/"
+  echo "   founding.html + deps copied"
+fi
 
 # Copy audio if it exists
 if [ -d "audio" ] && [ "$(ls -A audio 2>/dev/null)" ]; then

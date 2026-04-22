@@ -289,6 +289,298 @@ const I18n = (() => {
       loading: 'Cargando cursos...',
       consent_text: 'Usamos localStorage para guardar tu progreso y preferencias. Sin cookies, sin rastreo, sin venta de datos.',
       consent_accept: 'Entendido',
+    },
+
+    hi: {
+      // Nav
+      nav_home: 'मुख्य',
+      nav_categories: 'श्रेणियां',
+      nav_courses: 'पाठ्यक्रम',
+      nav_about: 'हमारे बारे में',
+      nav_dashboard: 'डैशबोर्ड',
+      nav_refer: 'दोस्तों को भेजें',
+      nav_classroom: 'कक्षा',
+      nav_login: 'लॉग इन',
+      nav_upgrade: 'अपग्रेड करें',
+
+      // Hero
+      hero_title: 'अपने स्क्रीन को वापस पाएं',
+      hero_sub: 'बच्चों और परिवार के लिए 50 मजेदार पाठ्यक्रम। स्वस्थ डिजिटल आदतें बनाएं, फोन की लत से छुटकारा पाएं, और स्क्रीन के बाहर की दुनिया खोजें।',
+      hero_cta: 'मुफ्त में शुरू करें',
+      hero_explore: 'श्रेणियां देखें',
+      hero_trust: '5 पाठ्यक्रम मुफ्त · क्रेडिट कार्ड की जरूरत नहीं · कभी भी रद्द करें',
+      hero_stat_courses: 'पाठ्यक्रम',
+      hero_stat_categories: 'श्रेणियां',
+      hero_stat_lessons: 'पाठ',
+      hero_stat_ages: '5 साल+',
+
+      // Course Browser
+      courses_title: 'सभी पाठ्यक्रम',
+      courses_search: 'पाठ्यक्रम खोजें...',
+      courses_all_categories: 'सभी श्रेणियां',
+      courses_all_levels: 'सभी स्तर',
+      courses_showing: 'दिखा रहे हैं',
+      courses_courses: 'पाठ्यक्रम',
+      courses_lessons: 'पाठ',
+      courses_free: 'मुफ्त',
+      courses_premium: 'प्रीमियम',
+
+      categories_title: 'पाठ्यक्रम श्रेणियां',
+      categories_sub: 'एक विषय चुनें जो आपको पसंद हो',
+
+      // Auth
+      auth_login: 'लॉग इन',
+      auth_signup: 'साइन अप',
+      auth_email: 'ईमेल पता',
+      auth_pin: 'PIN (4-6 अंक)',
+      auth_name: 'आपका नाम',
+      auth_create_pin: 'PIN बनाएं (4-6 अंक)',
+      auth_create_account: 'मुफ्त खाता बनाएं',
+      auth_free_note: '5 पाठ्यक्रम मुफ्त। क्रेडिट कार्ड की जरूरत नहीं।',
+      auth_welcome_back: 'वापसी पर स्वागत है!',
+      auth_account_created: 'खाता बन गया! 5 मुफ्त पाठ्यक्रम तैयार हैं।',
+
+      // Pricing
+      pricing_title: 'आसान, कियायती मूल्य',
+      pricing_sub: 'मुफ्त शुरू करें, जब चाहें अपग्रेड करें',
+      pricing_trial: 'सभी प्लान पर 7 दिन का मुफ्त ट्रायल। कभी भी रद्द करें।',
+      pricing_free: 'मुफ्त',
+      pricing_annual: 'वार्षिक',
+      pricing_family: 'पारिवारिक',
+      pricing_month: '/महीना',
+      pricing_year: '/साल',
+      pricing_forever: 'हमेशा के लिए',
+      pricing_best_value: 'सबसे अच्छा मूल्य — 33% बचत',
+      pricing_start_free: 'मुफ्त शुरू करें',
+      pricing_start_trial: 'मुफ्त ट्रायल शुरू करें',
+      pricing_most_popular: 'सबसे लोकप्रिय',
+
+      // Paywall
+      paywall_title: 'प्रीमियम पर अपग्रेड करें',
+      paywall_sub: 'सभी 50 डिजिटल स्वास्थ्य पाठ्यक्रमों तक पहुँच पाएं',
+      paywall_unlock: 'अनलॉक करें',
+      paywall_and_more: 'और 44 प्रीमियम पाठ्यक्रम',
+      paywall_continue_free: 'या जारी रखें',
+      paywall_free_courses: '5 मुफ्त पाठ्यक्रम',
+
+      // Presentation (critical — shown on every course slide)
+      pres_start: 'प्रस्तुति शुरू करें',
+      pres_close: 'बंद करें',
+      pres_print: 'वर्कशीट प्रिंट करें',
+      pres_prev: 'पिछली स्लाइड',
+      pres_next: 'अगली स्लाइड',
+      pres_exit: 'प्रस्तुति से बाहर निकलें',
+      pres_play: 'चलाएं',
+      pres_pause: 'रोकें',
+      pres_replay: 'फिर से सुनें',
+
+      // Dashboard
+      dash_parent: 'पेरेंट डैशबोर्ड',
+      dash_teacher: 'शिक्षक डैशबोर्ड',
+      dash_welcome: 'वापसी पर स्वागत है',
+      dash_courses_done: 'पूरे किए',
+      dash_day_streak: 'दिनों की लगातार',
+      dash_badges: 'बैज',
+      dash_minutes: 'मिनट',
+      dash_children: 'आपके बच्चे',
+      dash_add_child: 'बच्चा जोड़ें',
+      dash_badges_title: 'बैज और उपलब्धियां',
+      dash_progress: 'पाठ्यक्रम प्रगति',
+      dash_account: 'खाता',
+      dash_logout: 'लॉग आउट',
+      dash_back: 'पाठ्यक्रमों पर वापस',
+
+      // Gamification
+      xp_level_up: 'लेवल अप! अब आप हैं',
+      xp_daily_challenge: 'दैनिक चुनौती',
+
+      // Coach
+      coach_title: 'स्वास्थ्य कोच',
+      coach_powered: 'AI-संचालित',
+      coach_placeholder: 'डिजिटल स्वास्थ्य के बारे में कुछ भी पूछें...',
+
+      // Referral
+      referral_title: 'एक महीना दें, एक महीना पाएं',
+      referral_sub: 'दोस्तों के साथ अपना कोड शेयर करें। जब वे साइन अप करें, आप दोनों को 1 महीना प्रीमियम मुफ्त मिलेगा!',
+      referral_friends: 'रेफर किए दोस्त',
+      referral_months: 'मुफ्त महीने कमाए',
+      referral_have_code: 'क्या आपके पास रेफरल कोड है?',
+      referral_applied: 'रेफरल लागू!  आप दोनों को 1 महीना प्रीमियम मुफ्त मिला।',
+
+      // Social proof
+      testimonials_title: 'परिवार क्या कह रहे हैं',
+      testimonials_sub: 'असली परिवारों के असली नतीजे',
+      comparison_title: 'GetDeaddicted क्यों?',
+      comparison_sub: 'बच्चों के स्क्रीन स्वास्थ्य के लिए बना एकमात्र प्लेटफॉर्म',
+      faq_title: 'अक्सर पूछे जाने वाले प्रश्न',
+
+      // About
+      about_title: 'GetDeaddicted Academy के बारे में',
+      about_safe: 'सभी उम्र (5+) के लिए सुरक्षित',
+      about_fun: 'मजेदार, आकर्षक पाठ',
+      about_voice: 'आवाज़ नैरेशन शामिल',
+      about_progress: 'प्रगति ट्रैकिंग और बैज',
+      about_dashboard: 'पेरेंट डैशबोर्ड',
+      about_works: 'फोन और कंप्यूटर पर चलता है',
+
+      // Footer
+      footer_printables: 'मुफ्त प्रिंटेबल',
+      footer_privacy: 'गोपनीयता',
+      footer_terms: 'शर्तें',
+      footer_contact: 'संपर्क',
+      footer_copyright: '© 2026 GetDeaddicted LLC. सर्वाधिकार सुरक्षित।',
+      footer_tagline: 'आपका स्क्रीन टाइम, आपके नियम।',
+
+      // Email
+      email_title: 'हर हफ्ते डिजिटल वेलनेस टिप्स पाएं',
+      email_sub: 'स्वस्थ स्क्रीन आदतों वाले परिवारों से जुड़ें',
+      email_placeholder: 'आपका ईमेल पता',
+      email_subscribe: 'सब्सक्राइब करें',
+      email_subscribed: 'साप्ताहिक अपडेट्स की सदस्यता ली',
+
+      loading: 'पाठ्यक्रम लोड हो रहे हैं...',
+      consent_text: 'हम आपकी प्रगति और प्राथमिकताओं को बचाने के लिए localStorage का उपयोग करते हैं। कोई कुकीज नहीं, कोई ट्रैकिंग नहीं, कोई डेटा बेचा नहीं जाता।',
+      consent_accept: 'समझ गया',
+    },
+
+    mr: {
+      // Nav
+      nav_home: 'मुख्यपान',
+      nav_categories: 'वर्ग',
+      nav_courses: 'अभ्यासक्रम',
+      nav_about: 'आम्हांबद्दल',
+      nav_dashboard: 'डॅशबोर्ड',
+      nav_refer: 'मित्रांना पाठवा',
+      nav_classroom: 'वर्ग',
+      nav_login: 'लॉग इन',
+      nav_upgrade: 'अपग्रेड करा',
+
+      // Hero
+      hero_title: 'तुमचा स्क्रीन वेळ परत मिळवा',
+      hero_sub: 'मुले आणि कुटुंबासाठी 50 मजेशीर अभ्यासक्रम। निरोगी डिजिटल सवयी तयार करा, फोनच्या व्यसनातून मुक्त होई, आणि स्क्रीनच्या पलिकड़चे जग शोधा.',
+      hero_cta: 'फुकट शिका सुरु करा',
+      hero_explore: 'वर्ग पहा',
+      hero_trust: '5 अभ्यासक्रम फुकट · क्रेडिट कार्ड नको · कधीही रद्द करा',
+      hero_stat_courses: 'अभ्यासक्रम',
+      hero_stat_categories: 'वर्ग',
+      hero_stat_lessons: 'धडे',
+      hero_stat_ages: '5 वर्ष+',
+
+      // Course Browser
+      courses_title: 'सर्व अभ्यासक्रम',
+      courses_search: 'अभ्यासक्रम शोधा...',
+      courses_all_categories: 'सर्व वर्ग',
+      courses_all_levels: 'सर्व पातळ्या',
+      courses_showing: 'दाखवत आहे',
+      courses_courses: 'अभ्यासक्रम',
+      courses_lessons: 'धडे',
+      courses_free: 'फुकट',
+      courses_premium: 'प्रीमियम',
+
+      categories_title: 'अभ्यासक्रम वर्ग',
+      categories_sub: 'तुम्हाला आवडता तो विषय निवडा',
+
+      // Auth
+      auth_login: 'लॉग इन',
+      auth_signup: 'नोंदणी करा',
+      auth_email: 'ईमेल पत्ता',
+      auth_pin: 'PIN (4-6 अंक)',
+      auth_name: 'तुमचे नाव',
+      auth_create_pin: 'PIN तयार करा (4-6 अंक)',
+      auth_create_account: 'फुकट खाते तयार करा',
+      auth_free_note: '5 फुकट अभ्यासक्रम. क्रेडिट कार्ड नको.',
+      auth_welcome_back: 'परत स्वागत आहे!',
+      auth_account_created: 'खाते तयार झाले! 5 फुकट अभ्यासक्रम तयार आहेत.',
+
+      // Pricing
+      pricing_title: 'सोपे, परवडणारे दर',
+      pricing_sub: 'फुकट सुरु करा, तयार झाल्यावर अपग्रेड करा',
+      pricing_trial: 'सर्व प्लॅनवर 7 दिवसांची फुकट चाचणी. कधीही रद्द करा.',
+      pricing_free: 'फुकट',
+      pricing_annual: 'वार्षिक',
+      pricing_family: 'कुटुंब',
+      pricing_month: '/महिना',
+      pricing_year: '/वर्ष',
+      pricing_forever: 'कायमस्वरूपी',
+      pricing_best_value: 'सर्वोत्तम मूल्य — 33% बचत',
+      pricing_start_free: 'फुकट सुरु करा',
+      pricing_start_trial: 'फुकट चाचणी सुरु करा',
+      pricing_most_popular: 'सर्वात लोकप्रिय',
+
+      // Paywall
+      paywall_title: 'प्रीमियमवर अपग्रेड करा',
+      paywall_sub: 'सर्व 50 डिजिटल आरोग्य अभ्यासक्रमांपर्यंत पोहोचा',
+      paywall_unlock: 'अनलॉक करा',
+      paywall_and_more: 'आणि 44 प्रीमियम अभ्यासक्रम',
+      paywall_continue_free: 'किंवा सुरू ठेवा',
+      paywall_free_courses: '5 फुकट अभ्यासक्रम',
+
+      // Presentation (critical — shown on every course slide)
+      pres_start: 'प्रस्तुती सुरू करा',
+      pres_close: 'बंद करा',
+      pres_print: 'वर्कशीट प्रिंट करा',
+      pres_prev: 'मागील स्लाइड',
+      pres_next: 'पुढील स्लाइड',
+      pres_exit: 'प्रस्तुतीमधून बाहेर पडा',
+      pres_play: 'चालवा',
+      pres_pause: 'थांबवा',
+      pres_replay: 'पुन्हा ऐका',
+
+      // Dashboard
+      dash_parent: 'पालक डॅशबोर्ड',
+      dash_teacher: 'शिक्षक डॅशबोर्ड',
+      dash_welcome: 'परत स्वागत आहे',
+      dash_courses_done: 'पूर्ण केलेले',
+      dash_day_streak: 'सलग दिवस',
+      dash_badges: 'बॅजेस',
+      dash_minutes: 'मिनिटे',
+      dash_children: 'तुमची मुले',
+      dash_add_child: 'मूल जोडा',
+      dash_badges_title: 'बॅजेस आणि कामगिरी',
+      dash_progress: 'अभ्यासक्रम प्रगती',
+      dash_account: 'खाते',
+      dash_logout: 'लॉग आउट',
+      dash_back: 'अभ्यासक्रमांकडे परत',
+
+      // Gamification
+      xp_level_up: 'लेव्हल अप! आता तुम्ही आहात',
+      xp_daily_challenge: 'दैनिक आव्हान',
+
+      // About
+      about_title: 'GetDeaddicted Academy बद्दल',
+      about_safe: 'सर्व वयांसाठी सुरक्षित (5+)',
+      about_fun: 'मजेदार, आकर्षक धडे',
+      about_voice: 'आवाज नॅरेशन समाविष्ट',
+      about_progress: 'प्रगती ट्रॅकिंग आणि बॅजेस',
+      about_dashboard: 'पालक डॅशबोर्ड',
+      about_works: 'फोन आणि संगणकावर चालते',
+
+      // Social proof
+      testimonials_title: 'कुटुंब काय सांगतात',
+      testimonials_sub: 'खऱ्या कुटुंबांकडून खरे परिणाम',
+      comparison_title: 'GetDeaddicted का?',
+      comparison_sub: 'मुलांच्या स्क्रीन आरोग्यासाठी बनवलेला एकमेव प्लॅटफॉर्म',
+      faq_title: 'वारंवार विचारले जाणारे प्रश्न',
+
+      // Coach
+      coach_title: 'आरोग्य प्रशिक्षक',
+      coach_powered: 'AI-संचालित',
+      coach_placeholder: 'डिजिटल आरोग्याबद्दल काहीही विचारा...',
+
+      // Referral
+      referral_title: 'एक महिना द्या, एक महिना मिळवा',
+      referral_sub: 'मित्रांसोबत तुमचा कोड शेअर करा. जेव्हा ते साइन अप करतात, दोघांना एक महिना प्रीमियम फुकट मिळतो!',
+
+      // Footer
+      footer_privacy: 'गोपनीयता',
+      footer_terms: 'अटी',
+      footer_contact: 'संपर्क',
+      footer_copyright: '© 2026 GetDeaddicted LLC. सर्व हक्क राखीव.',
+      footer_tagline: 'तुमचा स्क्रीन वेळ, तुमचे नियम.',
+
+      loading: 'अभ्यासक्रम लोड होत आहेत...',
+      consent_text: 'आम्ही तुमची प्रगती जतन करण्यासाठी localStorage वापरतो. कुकीज नाहीत, ट्रॅकिंग नाही, डेटा विकला जात नाही.',
+      consent_accept: 'समजले',
     }
   };
 
@@ -299,7 +591,11 @@ const I18n = (() => {
 
   function _detectLocale() {
     const lang = (navigator.language || 'en').toLowerCase();
+    if (lang.startsWith('hi')) return 'hi';
+    if (lang.startsWith('mr')) return 'mr';
     if (lang.startsWith('es')) return 'es';
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta')) return 'hi';
     return 'en';
   }
 
@@ -320,7 +616,7 @@ const I18n = (() => {
   function getAvailableLocales() {
     return Object.keys(TRANSLATIONS).map(code => ({
       code,
-      name: code === 'en' ? 'English' : code === 'es' ? 'Espa\u00f1ol' : code
+      name: ({ en: 'English', es: 'Español', hi: 'हिन्दी', mr: 'मराठी' })[code] || code
     }));
   }
 
