@@ -5,8 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>GetDeaddicted Academy - Digital Wellness Courses</title>
+
+<!-- SEO Meta Tags -->
+<title>GetDeaddicted Academy - Digital Wellness Courses for Kids & Families</title>
+<meta name="description" content="50 fun, kid-friendly courses to build healthy digital habits. Help your family beat screen addiction with interactive lessons, voice narration, and progress tracking. Ages 5+.">
+<meta name="keywords" content="screen time, digital wellness, kids screen addiction, phone addiction, screen time management, digital detox, family screen time, online safety for kids">
+<meta name="author" content="GetDeaddicted LLC">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://academy.getdeaddicted.com">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="GetDeaddicted Academy - Take Back Your Screen Time">
+<meta property="og:description" content="50 fun courses to help kids, teens & families build healthy digital habits. Voice narration, interactive quizzes, badges. Free to start.">
+<meta property="og:url" content="https://academy.getdeaddicted.com">
+<meta property="og:site_name" content="GetDeaddicted Academy">
+<meta property="og:image" content="https://academy.getdeaddicted.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GetDeaddicted Academy - Take Back Your Screen Time">
+<meta name="twitter:description" content="50 fun courses to help kids & families build healthy digital habits.">
+<meta name="twitter:image" content="https://academy.getdeaddicted.com/og-image.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "GetDeaddicted Academy",
+  "description": "Digital wellness education platform for kids and families",
+  "url": "https://academy.getdeaddicted.com",
+  "sameAs": [],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "5 free courses, premium plans from $7.99/month"
+  },
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student",
+    "suggestedMinAge": 5
+  }
+}
+</script>
+
 <link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6ee7b7">
+<link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body class="is-loading">
 
@@ -16,6 +66,71 @@
     <span class="logo-icon" style="font-size:2.5rem;">&#9883;</span>
     <p class="loading-text">Loading courses...</p>
     <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="hideAuthModal()" aria-label="Close">&times;</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Log In</button>
+      <button class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</button>
+    </div>
+    <p class="auth-message" id="authMessage"></p>
+
+    <!-- Login Form -->
+    <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+      <input type="email" id="loginEmail" placeholder="Email address" required>
+      <input type="password" id="loginPin" placeholder="PIN (4-6 digits)" required minlength="4" maxlength="6" pattern="[0-9]*" inputmode="numeric">
+      <button type="submit" class="btn btn-primary btn-full">Log In</button>
+      <p class="auth-error" id="loginError"></p>
+    </form>
+
+    <!-- Signup Form -->
+    <form class="auth-form" id="signupForm" onsubmit="handleSignup(event)" style="display:none;">
+      <input type="text" id="signupName" placeholder="Your name" required maxlength="50">
+      <input type="email" id="signupEmail" placeholder="Email address" required>
+      <input type="password" id="signupPin" placeholder="Create a PIN (4-6 digits)" required minlength="4" maxlength="6" pattern="[0-9]*" inputmode="numeric">
+      <button type="submit" class="btn btn-primary btn-full">Create Free Account</button>
+      <p class="auth-sub-note">5 free courses included. No credit card needed.</p>
+      <p class="auth-error" id="signupError"></p>
+    </form>
+  </div>
+</div>
+
+<!-- PAYWALL OVERLAY -->
+<div class="paywall-overlay" id="paywallOverlay">
+  <div class="paywall-content"></div>
+</div>
+
+<!-- CERTIFICATE MODAL -->
+<div class="cert-overlay" id="certificateModal"></div>
+
+<!-- REFERRAL PANEL -->
+<div class="referral-overlay" id="referralPanel"></div>
+
+<!-- ONBOARDING OVERLAY -->
+<div class="onboard-overlay" id="onboardingOverlay"></div>
+
+<!-- AI COACH WIDGET -->
+<div id="coachWidget"></div>
+
+<!-- CLASSROOM MODAL -->
+<div class="cert-overlay" id="classroomModal"></div>
+
+<!-- EMAIL POPUP -->
+<div class="referral-overlay" id="emailPopup"></div>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notif-panel" id="notifPanel"></div>
+
+<!-- BADGE TOAST (for new badge earned) -->
+<div class="badge-toast" id="badgeToast" style="display:none;">
+  <div class="badge-toast-icon" id="badgeToastIcon"></div>
+  <div class="badge-toast-text">
+    <strong id="badgeToastName"></strong>
+    <span id="badgeToastDesc"></span>
   </div>
 </div>
 
@@ -30,6 +145,20 @@
       <a href="#categories" onclick="closeNav()">Categories</a>
       <a href="#courses" onclick="closeNav()">Courses</a>
       <a href="#about" onclick="closeNav()">About</a>
+      <a href="#" id="navDashboardLink" onclick="closeNav();Dashboard.show();return false;" style="display:none;">Dashboard</a>
+      <a href="#" id="navReferralLink" onclick="closeNav();Referral.showReferralPanel();return false;" style="display:none;">Refer & Earn</a>
+      <a href="#" id="navClassroomLink" onclick="closeNav();Classroom.showDashboard();return false;" style="display:none;">Classroom</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-accent btn-sm" id="navUpgradeBtn" onclick="Paywall.showPaywall()" style="display:none;">Upgrade</button>
+      <button class="notif-bell" id="navNotifBell" onclick="Notifications.togglePanel()" style="display:none;" title="Notifications">
+        &#128276;<span class="notif-badge" id="notifBadge" style="display:none;">0</span>
+      </button>
+      <button class="btn btn-secondary btn-sm" id="navAuthBtn" onclick="showAuthModal('login')">Log In</button>
+      <span class="nav-user" id="navUserDisplay" style="display:none;">
+        <span class="nav-user-avatar" id="navUserAvatar"></span>
+        <span class="nav-user-name" id="navUserName"></span>
+      </span>
     </div>
     <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation menu">&#9776;</button>
   </nav>
@@ -44,9 +173,25 @@
     </div>
     <a href="#courses" class="btn btn-primary btn-hero-cta">Start Learning Free</a>
     <a href="#categories" class="btn btn-secondary">Explore Categories</a>
-    <p class="hero-trust">No credit card required &middot; 50 courses included &middot; Cancel anytime</p>
+    <p class="hero-trust">5 courses free &middot; No credit card required &middot; Cancel anytime</p>
   </div>
 </header>
+
+<!-- XP BAR (shown when logged in) -->
+<div class="xp-bar-container" id="xpBar" style="display:none;"></div>
+
+<!-- DAILY CHALLENGE -->
+<div id="dailyChallenge" style="display:none;"></div>
+
+<!-- STREAK BANNER (shown when logged in) -->
+<div class="streak-banner" id="streakBanner" style="display:none;">
+  <span class="streak-fire">&#128293;</span>
+  <span class="streak-text" id="streakText"></span>
+  <span class="streak-badges" id="streakBadgeCount"></span>
+</div>
+
+<!-- RECOMMENDATION BAR (shown when logged in + has progress) -->
+<div id="recommendationBar" style="display:none;"></div>
 
 <!-- CATEGORY GRID -->
 <section class="section" id="categories">
@@ -74,6 +219,14 @@
   <div class="course-grid" id="courseGrid"></div>
 </section>
 
+<!-- PRICING SECTION -->
+<section class="section" id="pricing">
+  <h2 class="section-title">Simple, Affordable Pricing</h2>
+  <p class="section-sub">Start free, upgrade when you're ready</p>
+  <div class="pricing-grid" id="pricingGrid"></div>
+  <p class="pricing-note">All plans include a 7-day free trial. Cancel anytime.</p>
+</section>
+
 <!-- COURSE DETAIL MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal()" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal" onclick="event.stopPropagation()">
@@ -89,6 +242,10 @@
     </div>
     <div class="modal-body">
       <p id="modalDescription"></p>
+      <div class="modal-progress-bar" id="modalProgressBar" style="display:none;">
+        <div class="modal-progress-track"><div class="modal-progress-fill" id="modalProgressFill"></div></div>
+        <span class="modal-progress-text" id="modalProgressText"></span>
+      </div>
       <h3>Course Modules</h3>
       <div class="module-list" id="modalModules"></div>
       <h3>What You'll Learn</h3>
@@ -98,6 +255,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-primary btn-full-mobile" onclick="startPresentation()">Start Presentation</button>
+      <button class="btn btn-secondary btn-full-mobile" onclick="if(currentCourse)Printables.generateWorksheet(currentCourse.id)">Print Worksheet</button>
       <button class="btn btn-secondary btn-full-mobile" onclick="closeModal()">Close</button>
     </div>
   </div>
@@ -173,6 +331,35 @@
   </div>
 </div>
 
+<!-- DASHBOARD SECTION -->
+<section class="section" id="dashboardSection" style="display:none;"></section>
+
+<!-- SOCIAL PROOF STATS -->
+<section class="section section-dark" id="socialProof">
+  <div id="statsGrid" class="stats-grid"></div>
+  <div id="trustBadges"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+  <h2 class="section-title">What Families Are Saying</h2>
+  <p class="section-sub">Real results from real families</p>
+  <div class="testimonial-grid" id="testimonialGrid"></div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="section section-dark" id="comparison">
+  <h2 class="section-title">Why GetDeaddicted?</h2>
+  <p class="section-sub">The only platform built specifically for kids' screen wellness</p>
+  <div id="comparisonTable"></div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-container" id="faqList"></div>
+</section>
+
 <!-- ABOUT -->
 <section class="section" id="about">
   <h2 class="section-title">About GetDeaddicted Academy</h2>
@@ -186,16 +373,29 @@
       <div class="feature"><span class="feature-icon">&#10003;</span> Safe for all ages (5+)</div>
       <div class="feature"><span class="feature-icon">&#10003;</span> Fun, engaging lessons</div>
       <div class="feature"><span class="feature-icon">&#10003;</span> Voice narration built in</div>
-      <div class="feature"><span class="feature-icon">&#10003;</span> Presentation-ready slides</div>
-      <div class="feature"><span class="feature-icon">&#10003;</span> 10 focused categories</div>
+      <div class="feature"><span class="feature-icon">&#10003;</span> Progress tracking & badges</div>
+      <div class="feature"><span class="feature-icon">&#10003;</span> Parent dashboard</div>
       <div class="feature"><span class="feature-icon">&#10003;</span> Works on phone and desktop</div>
     </div>
   </div>
 </section>
 
 <footer class="footer">
+  <div id="emailCaptureFooter"></div>
+  <div class="footer-links">
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#about">About</a>
+    <a href="#" onclick="Printables.generateFamilyActivitySheet();return false;">Free Printables</a>
+    <a href="#" onclick="Legal.showPrivacy();return false;">Privacy</a>
+    <a href="#" onclick="Legal.showTerms();return false;">Terms</a>
+    <a href="#" onclick="Affiliate.showPortal();return false;">Partners</a>
+    <a href="mailto:hello@getdeaddicted.com">Contact</a>
+    <a href="#" onclick="Admin.showDashboard();return false;" style="color:#334155;">Admin</a>
+  </div>
   <p>&copy; 2026 GetDeaddicted LLC. All rights reserved.</p>
   <p>Your screen time, your rules.</p>
+  <div id="langSwitcher" class="lang-switcher"></div>
 </footer>
 
 <script src="courses.js"></script>
@@ -209,6 +409,27 @@
 <script src="exp-36-40.js"></script>
 <script src="exp-41-45.js"></script>
 <script src="exp-46-50.js"></script>
+<script src="i18n.js"></script>
+<script src="loader.js"></script>
+<script src="auth.js"></script>
+<script src="progress.js"></script>
+<script src="paywall.js"></script>
+<script src="dashboard.js"></script>
+<script src="certificate.js"></script>
+<script src="coach.js"></script>
+<script src="referral.js"></script>
+<script src="onboarding.js"></script>
+<script src="classroom.js"></script>
+<script src="email.js"></script>
+<script src="printables.js"></script>
+<script src="analytics.js"></script>
+<script src="recommendations.js"></script>
+<script src="notifications.js"></script>
+<script src="gamification.js"></script>
+<script src="landing.js"></script>
+<script src="admin.js"></script>
+<script src="legal.js"></script>
+<script src="affiliate.js"></script>
 <script src="voiceover.js"></script>
 <script src="avatar.js"></script>
 <script src="app.js"></script>

@@ -6,6 +6,7 @@ let currentSlide = 0;
 let slides = [];
 let slideDirection = 'forward';
 let celebratedMilestones = new Set();
+let slideStartTime = null;
 
 // --- Merge expansion data into COURSES ---
 function mergeExpansionData() {
@@ -42,7 +43,30 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCategories();
   renderCourses(COURSES);
   populateCategoryFilter();
+  renderPricingSection();
   document.addEventListener('keydown', handleKeyboard);
+
+  // Init auth-dependent UI
+  updateNavAuth();
+  updateStreakBanner();
+  if (typeof Paywall !== 'undefined') Paywall.init();
+  if (typeof Referral !== 'undefined') Referral.checkUrlReferral();
+  if (typeof Coach !== 'undefined') Coach.init();
+  if (typeof Analytics !== 'undefined') Analytics.init();
+  if (typeof EmailCapture !== 'undefined') EmailCapture.renderFooterForm();
+  if (typeof Notifications !== 'undefined') Notifications.init();
+  if (typeof Recommendations !== 'undefined') Recommendations.renderRecommendationBar();
+  if (typeof I18n !== 'undefined') I18n.init();
+  if (typeof Landing !== 'undefined') Landing.init();
+  if (typeof Legal !== 'undefined') Legal.init();
+  if (typeof Gamification !== 'undefined') Gamification.init();
+  if (typeof Affiliate !== 'undefined') Affiliate.init();
+
+  // Post-auth: onboarding + pending referral
+  setTimeout(() => {
+    if (typeof Referral !== 'undefined') Referral.applyPendingReferral();
+    if (typeof Onboarding !== 'undefined' && Onboarding.shouldShow()) Onboarding.show();
+  }, 800);
 
   // Dismiss loading overlay
   requestAnimationFrame(() => {
@@ -54,6 +78,124 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('is-loading');
   });
 });
+
+// --- Auth UI ---
+function showAuthModal(tab, message) {
+  const overlay = document.getElementById('authOverlay');
+  if (!overlay) return;
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  switchAuthTab(tab || 'login');
+  const msg = document.getElementById('authMessage');
+  if (msg) msg.textContent = message || '';
+}
+
+function hideAuthModal() {
+  const overlay = document.getElementById('authOverlay');
+  if (overlay) overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === tab);
+  });
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'flex' : 'none';
+  document.getElementById('signupForm').style.display = tab === 'signup' ? 'flex' : 'none';
+  document.getElementById('loginError').textContent = '';
+  document.getElementById('signupError').textContent = '';
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const pin = document.getElementById('loginPin').value;
+  const result = Auth.login({ email, pin });
+  if (result.ok) {
+    hideAuthModal();
+    updateNavAuth();
+    updateStreakBanner();
+    renderCourses(COURSES);
+    showToast('Welcome back!');
+  } else {
+    document.getElementById('loginError').textContent = result.error;
+  }
+}
+
+function handleSignup(e) {
+  e.preventDefault();
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pin = document.getElementById('signupPin').value;
+  const result = Auth.signup({ name, email, pin });
+  if (result.ok) {
+    hideAuthModal();
+    updateNavAuth();
+    updateStreakBanner();
+    renderCourses(COURSES);
+    showToast('Account created! 5 free courses are ready for you.');
+    if (typeof Analytics !== 'undefined') Analytics.trackSignup('email');
+    // Trigger onboarding for new users
+    setTimeout(() => {
+      if (typeof Onboarding !== 'undefined') Onboarding.show();
+    }, 500);
+  } else {
+    document.getElementById('signupError').textContent = result.error;
+  }
+}
+
+function updateNavAuth() {
+  const authBtn = document.getElementById('navAuthBtn');
+  const userDisplay = document.getElementById('navUserDisplay');
+  const upgradeBtn = document.getElementById('navUpgradeBtn');
+  const dashLink = document.getElementById('navDashboardLink');
+
+  if (Auth.isLoggedIn()) {
+    const profile = Auth.getActiveProfile();
+    if (authBtn) authBtn.style.display = 'none';
+    if (userDisplay) {
+      userDisplay.style.display = 'flex';
+      userDisplay.onclick = () => Dashboard.show();
+      const avatar = document.getElementById('navUserAvatar');
+      const nameEl = document.getElementById('navUserName');
+      if (avatar && profile) avatar.textContent = (profile.name || 'U')[0].toUpperCase();
+      if (nameEl && profile) nameEl.textContent = profile.name || 'User';
+    }
+    if (upgradeBtn) upgradeBtn.style.display = Auth.isPaid() ? 'none' : 'inline-block';
+    if (dashLink) dashLink.style.display = 'inline';
+    const refLink = document.getElementById('navReferralLink');
+    if (refLink) refLink.style.display = 'inline';
+    const classLink = document.getElementById('navClassroomLink');
+    if (classLink) classLink.style.display = 'inline';
+    const notifBell = document.getElementById('navNotifBell');
+    if (notifBell) notifBell.style.display = 'inline-block';
+    const xpBar = document.getElementById('xpBar');
+    if (xpBar) xpBar.style.display = 'block';
+    if (typeof Gamification !== 'undefined') { Gamification.init(); Gamification.renderDailyChallenge(); }
+  } else {
+    if (authBtn) authBtn.style.display = 'inline-block';
+    if (userDisplay) userDisplay.style.display = 'none';
+    if (upgradeBtn) upgradeBtn.style.display = 'none';
+    if (dashLink) dashLink.style.display = 'none';
+  }
+}
+
+function updateStreakBanner() {
+  const banner = document.getElementById('streakBanner');
+  if (!banner) return;
+  if (!Auth.isLoggedIn()) { banner.style.display = 'none'; return; }
+
+  const stats = Progress.getStats();
+  if (stats.currentStreak > 0) {
+    banner.style.display = 'block';
+    document.getElementById('streakText').textContent =
+      `${stats.currentStreak} day streak! ${stats.coursesCompleted}/50 courses completed`;
+    document.getElementById('streakBadgeCount').textContent =
+      stats.badgesEarned > 0 ? `${stats.badgesEarned} badges earned` : '';
+  } else {
+    banner.style.display = 'none';
+  }
+}
 
 // --- Navigation ---
 function toggleNav() {
@@ -97,8 +239,25 @@ function renderCourses(courses) {
   grid.innerHTML = courses.map(course => {
     const cat = CATEGORIES.find(c => c.id === course.category);
     const badgeClass = `badge-${course.level.toLowerCase()}`;
+    const isFree = Auth.isCourseFree(course.id);
+    const canAccess = Auth.canAccessCourse(course.id);
+    const pct = Progress.getCoursePercent(course.id);
+
+    let statusBadge = '';
+    if (isFree) {
+      statusBadge = '<span class="free-badge">Free</span>';
+    } else if (!canAccess) {
+      statusBadge = '<span class="locked-badge">&#128274; Premium</span>';
+    }
+
+    let progressBar = '';
+    if (pct > 0) {
+      progressBar = `<div class="course-card-progress"><div class="course-card-progress-fill" style="width:${pct}%"></div></div>`;
+    }
+
     return `
       <div class="course-card" style="--cat-color: ${cat.color}" onclick="openCourse(${course.id})" tabindex="0" role="button" aria-label="${course.title}" onkeydown="if(event.key==='Enter')openCourse(${course.id})">
+        ${statusBadge}
         <div class="course-cat">${cat.icon} ${cat.name}</div>
         <h3>${course.title}</h3>
         <p>${course.description.substring(0, 140)}...</p>
@@ -107,6 +266,7 @@ function renderCourses(courses) {
           <span>${course.duration}</span>
           <span>${course.lessons} lessons</span>
         </div>
+        ${progressBar}
       </div>
     `;
   }).join('');
@@ -167,6 +327,17 @@ function openCourse(id) {
   document.getElementById('modalDescription').textContent = currentCourse.description;
   document.getElementById('modalAudience').textContent = currentCourse.audience;
 
+  // Show progress in modal
+  const pct = Progress.getCoursePercent(currentCourse.id);
+  const progressBar = document.getElementById('modalProgressBar');
+  if (pct > 0 && progressBar) {
+    progressBar.style.display = 'block';
+    document.getElementById('modalProgressFill').style.width = pct + '%';
+    document.getElementById('modalProgressText').textContent = pct === 100 ? 'Completed!' : `${pct}% complete`;
+  } else if (progressBar) {
+    progressBar.style.display = 'none';
+  }
+
   const modules = currentCourse.modules;
   document.getElementById('modalModules').innerHTML = modules.map((m, i) => {
     const title = isRichModule(m) ? m.title : m;
@@ -196,12 +367,17 @@ function closeModal() {
 // --- Presentation Mode ---
 function startPresentation() {
   if (!currentCourse) return;
+
+  // Paywall check
+  if (!Paywall.checkAccess(currentCourse.id, currentCourse.title)) return;
+
   const cat = CATEGORIES.find(c => c.id === currentCourse.category);
   closeModal();
 
   slides = buildSlides(currentCourse, cat);
   currentSlide = 0;
   slideDirection = 'forward';
+  slideStartTime = Date.now();
   voiceover.setCourse(currentCourse.id);
   celebratedMilestones = new Set();
 
@@ -220,6 +396,8 @@ function startPresentation() {
 
   renderSlide();
   initAvatar();
+  if (typeof Coach !== 'undefined') Coach.setCourseContext(currentCourse);
+  if (typeof Analytics !== 'undefined') Analytics.trackCourseStart(currentCourse.id, currentCourse.title);
 }
 
 function exitPresentation() {
@@ -230,6 +408,17 @@ function exitPresentation() {
   }
   document.getElementById('presentationMode').classList.remove('active');
   document.body.style.overflow = '';
+
+  // Track time spent
+  if (slideStartTime && currentCourse) {
+    const minutes = (Date.now() - slideStartTime) / 60000;
+    Progress.addTime(minutes);
+    slideStartTime = null;
+  }
+
+  // Refresh course cards to show updated progress
+  renderCourses(COURSES);
+  updateStreakBanner();
 }
 
 function nextSlide() {
@@ -268,6 +457,27 @@ function renderSlide() {
   // Scroll to top of slide
   presSlide.scrollTop = 0;
 
+  // Track progress
+  if (currentCourse) {
+    Progress.recordSlideView(currentCourse.id, currentSlide, slides.length);
+
+    if (typeof Analytics !== 'undefined') Analytics.trackSlideView(currentCourse.id, currentSlide);
+    if (typeof Gamification !== 'undefined') Gamification.awardXP('slide_view');
+
+    // Course completed on last slide
+    if (currentSlide === slides.length - 1) {
+      Progress.completeCourse(currentCourse.id);
+      if (typeof Gamification !== 'undefined') Gamification.awardXP('course_complete');
+      if (typeof Analytics !== 'undefined') Analytics.trackCourseComplete(currentCourse.id, currentCourse.title);
+      if (typeof Notifications !== 'undefined') Notifications.generateContextual();
+      const newBadges = Progress.checkBadges();
+      if (newBadges.length > 0) {
+        setTimeout(() => showBadgeToast(newBadges[0]), 1500);
+        if (typeof Analytics !== 'undefined') Analytics.trackBadge(newBadges[0].name);
+      }
+    }
+  }
+
   // Check for milestone celebration
   checkMilestoneCelebration();
 
@@ -276,7 +486,6 @@ function renderSlide() {
   if (slide.narration && voiceover.enabled) {
     setTimeout(() => {
       voiceover.speak(slide.narration, () => {
-        // Auto-advance if enabled, but NOT on interactive slides (quiz, reflection)
         const autoAdvance = document.getElementById('autoAdvanceToggle');
         if (autoAdvance && autoAdvance.checked && currentSlide < slides.length - 1 && !slide.interactive) {
           setTimeout(() => nextSlide(), 1500);
@@ -292,7 +501,7 @@ function buildSlides(course, cat) {
   const outcomes = course.detailedOutcomes || course.outcomes;
   const moduleNames = course.modules.map(m => isRichModule(m) ? m.title : m);
 
-  // Slide 1: Title — welcoming, exciting start
+  // Slide 1: Title
   s.push({
     html: `
       <div class="slide-fade-in">
@@ -311,7 +520,7 @@ function buildSlides(course, cat) {
     narration: `Welcome to GetDeaddicted Academy! You are about to begin an exciting course: ${course.title}. This is a ${course.level} level course in ${cat.name}, spanning ${course.duration} with ${course.lessons} lessons. Get ready — let's do this!`
   });
 
-  // Slide 2: Introduction / Overview
+  // Slide 2: Introduction
   const intro = course.introduction || course.description;
   s.push({
     html: `
@@ -326,7 +535,7 @@ function buildSlides(course, cat) {
     narration: intro
   });
 
-  // Slide 3: What You'll Learn
+  // Slide 3: Outcomes
   s.push({
     html: `
       <div class="slide-fade-in">
@@ -340,7 +549,7 @@ function buildSlides(course, cat) {
     narration: `In this course, you will learn the following: ${outcomes.join('. ')}. These outcomes are designed to give you practical, lasting tools for your wellness journey.`
   });
 
-  // Slide 4: Course Roadmap
+  // Slide 4: Roadmap
   s.push({
     html: `
       <div class="slide-fade-in">
@@ -359,10 +568,9 @@ function buildSlides(course, cat) {
     narration: `This course contains ${moduleNames.length} modules. Here's your roadmap: ${moduleNames.map((m, i) => `Module ${i + 1}: ${m}`).join('. ')}. Each module builds on the last, so we recommend going in order.`
   });
 
-  // Individual module slides
+  // Module slides
   course.modules.forEach((mod, i) => {
     if (isRichModule(mod)) {
-      // Rich module: Overview slide with discover intro and duration badge
       s.push({
         html: `
           <div class="slide-fade-in">
@@ -377,7 +585,6 @@ function buildSlides(course, cat) {
         narration: mod.narration || mod.overview
       });
 
-      // Rich module: Key Insights slide — styled cards with click-to-reveal
       if (mod.keyPoints && mod.keyPoints.length > 0) {
         s.push({
           html: `
@@ -399,7 +606,6 @@ function buildSlides(course, cat) {
           interactive: true
         });
 
-        // Quiz slide after key insights
         const quizData = generateQuiz(mod.keyPoints, mod.title);
         s.push({
           html: `
@@ -411,7 +617,7 @@ function buildSlides(course, cat) {
                 <div class="quiz-question">${quizData.question}</div>
                 <div class="quiz-options">
                   ${quizData.options.map((opt, oi) => `
-                    <div class="quiz-option stagger-item" style="--i:${oi}" onclick="renderQuiz(this, ${opt.correct ? 'true' : 'false'}, 'quiz-mod-${i}')">
+                    <div class="quiz-option stagger-item" style="--i:${oi}" onclick="handleQuizAnswer(this, ${opt.correct ? 'true' : 'false'}, 'quiz-mod-${i}')">
                       <span class="opt-letter">${String.fromCharCode(65 + oi)}</span>
                       <span>${opt.text}</span>
                     </div>
@@ -425,7 +631,6 @@ function buildSlides(course, cat) {
           interactive: true
         });
 
-        // "Did You Know?" slide — pick the longest/most interesting key point
         const funFact = mod.keyPoints.reduce((a, b) => a.length >= b.length ? a : b);
         s.push({
           html: `
@@ -442,7 +647,6 @@ function buildSlides(course, cat) {
         });
       }
 
-      // Rich module: Exercise slide — interactive activity card
       if (mod.exercise) {
         s.push({
           html: `
@@ -461,7 +665,6 @@ function buildSlides(course, cat) {
           narration: `Now it's your turn to practice! Here is your activity for this module: ${mod.exercise}. Take your time with this. There's no rush. Real growth happens through practice. You've got this!`
         });
 
-        // Reflection slide after exercise
         const reflectionQ = generateReflection(mod.title, mod.keyPoints);
         s.push({
           html: `
@@ -481,7 +684,6 @@ function buildSlides(course, cat) {
         });
       }
 
-      // Module Complete mini-slide
       s.push({
         html: `
           <div class="slide-fade-in">
@@ -502,7 +704,6 @@ function buildSlides(course, cat) {
       });
 
     } else {
-      // Simple string module
       s.push({
         html: `
           <div class="slide-fade-in">
@@ -517,7 +718,6 @@ function buildSlides(course, cat) {
         narration: `We are now on Module ${i + 1}: ${mod}. In this module, we'll take a deep dive into the principles, practices, and actionable strategies related to ${mod}. Let's explore this together.`
       });
 
-      // Module Complete mini-slide for simple modules too
       s.push({
         html: `
           <div class="slide-fade-in">
@@ -553,7 +753,7 @@ function buildSlides(course, cat) {
     narration: `Let's review the key takeaways from this course: ${outcomes.join('. ')}. Remember, wellness is a journey, not a destination. Take these lessons with you every day.`
   });
 
-  // Course Complete — achievement / certificate feel
+  // Course Complete
   s.push({
     html: `
       <div class="slide-fade-in">
@@ -572,11 +772,15 @@ function buildSlides(course, cat) {
           <p style="color: #6ee7b7; font-size: 1.2rem; line-height:1.7;">
             You took a real step toward a healthier digital life.<br>Keep going. You're worth it.
           </p>
+          <div class="completion-actions" style="margin-top:1.5rem;display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;">
+            <button class="btn btn-primary btn-sm" onclick="Certificate.showCertificateModal(currentCourse)">Download Certificate</button>
+            <button class="btn btn-secondary btn-sm" onclick="shareCompletion()">Share Achievement</button>
+          </div>
           <p style="margin-top: 1.5rem; color: #475569; font-size:0.85rem;">&copy; 2026 GetDeaddicted Academy</p>
         </div>
       </div>
     `,
-    narration: `Congratulations! You've completed ${course.title}. You covered ${totalModules} modules and invested real effort into your digital wellness. You should be proud. Remember: this is just the beginning. Keep going. You are absolutely worth it. Thank you for learning with GetDeaddicted Academy.`
+    narration: `Congratulations! You've completed ${course.title}. You covered ${totalModules} modules and invested real effort into your digital wellness. You should be proud. You can download your certificate and share your achievement! Remember: this is just the beginning. Keep going. You are absolutely worth it. Thank you for learning with GetDeaddicted Academy.`
   });
 
   return s;
@@ -584,23 +788,18 @@ function buildSlides(course, cat) {
 
 // --- Quiz Generator ---
 function generateQuiz(keyPoints, moduleTitle) {
-  // Use the first key point as the basis for the correct answer
   const correctPoint = keyPoints[0];
-  // Create a question from the key point
   const question = `Based on what you just learned about "${moduleTitle}", which of the following is true?`;
 
-  // Build options: one correct, two distractors
   const options = [];
   options.push({ text: correctPoint, correct: true });
 
-  // Generate plausible distractors
   const distractors = [
     `This topic is not important for digital wellness.`,
     `Screen time has no effect on how we feel or behave.`,
     `There is nothing you can do to change your digital habits.`
   ];
 
-  // If we have more key points, use a modified version as a distractor
   if (keyPoints.length > 1) {
     options.push({ text: distractors[0], correct: false });
     options.push({ text: distractors[2], correct: false });
@@ -609,7 +808,6 @@ function generateQuiz(keyPoints, moduleTitle) {
     options.push({ text: distractors[1], correct: false });
   }
 
-  // Shuffle options
   for (let k = options.length - 1; k > 0; k--) {
     const r = Math.floor(Math.random() * (k + 1));
     [options[k], options[r]] = [options[r], options[k]];
@@ -618,22 +816,23 @@ function generateQuiz(keyPoints, moduleTitle) {
   return { question, options };
 }
 
-// --- Quiz Answer Handler ---
-function renderQuiz(el, isCorrect, containerId) {
+// --- Quiz Answer Handler (with progress tracking) ---
+function handleQuizAnswer(el, isCorrect, containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  // Prevent multiple answers
   const allOptions = container.querySelectorAll('.quiz-option');
   const alreadyAnswered = container.querySelector('.quiz-option.correct, .quiz-option.incorrect');
   if (alreadyAnswered) return;
 
-  // Mark the selected option
+  // Track quiz result
+  Progress.recordQuiz(isCorrect);
+  if (typeof Gamification !== 'undefined') Gamification.awardXP(isCorrect ? 'quiz_correct' : 'quiz_attempt');
+
   if (isCorrect) {
     el.classList.add('correct');
   } else {
     el.classList.add('incorrect');
-    // Also highlight the correct one
     allOptions.forEach(opt => {
       if (opt.getAttribute('onclick').includes('true')) {
         opt.classList.add('correct');
@@ -641,7 +840,6 @@ function renderQuiz(el, isCorrect, containerId) {
     });
   }
 
-  // Show feedback
   const feedbackId = containerId.replace('quiz-', 'quiz-feedback-');
   const feedbackEl = document.getElementById(feedbackId);
   if (feedbackEl) {
@@ -650,8 +848,12 @@ function renderQuiz(el, isCorrect, containerId) {
       : `<div class="quiz-feedback incorrect">Not quite — check the highlighted answer above!</div>`;
   }
 
-  // Disable further clicks
   allOptions.forEach(opt => { opt.style.pointerEvents = 'none'; });
+}
+
+// Keep old name for backward compat in case any inline onclick uses it
+function renderQuiz(el, isCorrect, containerId) {
+  handleQuizAnswer(el, isCorrect, containerId);
 }
 
 // --- Reflection Question Generator ---
@@ -663,7 +865,6 @@ function generateReflection(moduleTitle, keyPoints) {
     `If you could tell a friend one thing from this module, what would it be?`,
     `How did this module make you feel? Did anything surprise you?`
   ];
-  // Pick based on a simple hash of the title for consistency
   const hash = moduleTitle.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   return reflections[hash % reflections.length];
 }
@@ -678,7 +879,6 @@ function updateProgressBar() {
 
 // --- Toast / Celebration ---
 function showToast(message) {
-  // Remove existing toast
   const existing = document.querySelector('.toast');
   if (existing) existing.remove();
 
@@ -691,6 +891,28 @@ function showToast(message) {
     toast.classList.add('dismissing');
     setTimeout(() => toast.remove(), 400);
   }, 2000);
+}
+
+function shareCompletion() {
+  if (!currentCourse) return;
+  const text = `I just completed "${currentCourse.title}" on GetDeaddicted Academy! Taking back my screen time.`;
+  const url = 'https://academy.getdeaddicted.com';
+  if (navigator.share) {
+    navigator.share({ title: 'GetDeaddicted Academy', text, url }).catch(() => {});
+  } else {
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+    window.open(twitterUrl, '_blank', 'noopener');
+  }
+}
+
+function showBadgeToast(badge) {
+  const el = document.getElementById('badgeToast');
+  if (!el) return;
+  document.getElementById('badgeToastIcon').innerHTML = badge.icon;
+  document.getElementById('badgeToastName').textContent = badge.name;
+  document.getElementById('badgeToastDesc').textContent = badge.desc;
+  el.style.display = 'flex';
+  setTimeout(() => { el.style.display = 'none'; }, 4000);
 }
 
 function checkMilestoneCelebration() {
@@ -708,6 +930,56 @@ function checkMilestoneCelebration() {
       showToast(m.message);
     }
   });
+}
+
+// --- Pricing Section ---
+function renderPricingSection() {
+  const grid = document.getElementById('pricingGrid');
+  if (!grid) return;
+
+  const plans = [
+    {
+      name: 'Free',
+      price: '$0',
+      period: 'forever',
+      features: ['5 courses included', 'Voice narration', 'Basic progress tracking', 'Works on all devices'],
+      cta: 'Start Free',
+      action: "document.getElementById('courses').scrollIntoView({behavior:'smooth'})",
+      popular: false
+    },
+    {
+      name: 'Annual',
+      price: '$59.99',
+      period: '/year',
+      savings: 'Best Value — Save 37%',
+      features: ['All 50 courses', 'Voice narration', 'Full progress & streaks', 'Badges & certificates', 'Priority support'],
+      cta: 'Start Free Trial',
+      action: "Paywall.checkout('annual')",
+      popular: true
+    },
+    {
+      name: 'Family',
+      price: '$79.99',
+      period: '/year',
+      features: ['All 50 courses', 'Up to 5 family members', 'Parent dashboard', 'Full progress & streaks', 'Badges & certificates'],
+      cta: 'Start Free Trial',
+      action: "Paywall.checkout('family_annual')",
+      popular: false
+    }
+  ];
+
+  grid.innerHTML = plans.map(plan => `
+    <div class="pricing-card ${plan.popular ? 'popular' : ''}">
+      ${plan.popular ? '<div class="plan-badge">Most Popular</div>' : ''}
+      ${plan.savings ? '<div class="plan-savings">' + plan.savings + '</div>' : ''}
+      <h3>${plan.name}</h3>
+      <div class="plan-price">${plan.price}<span class="plan-period">${plan.period}</span></div>
+      <ul class="plan-features">
+        ${plan.features.map(f => `<li>&#10003; ${f}</li>`).join('')}
+      </ul>
+      <button class="btn btn-primary plan-cta" onclick="${plan.action}">${plan.cta}</button>
+    </div>
+  `).join('');
 }
 
 // --- Settings Panel ---
@@ -734,17 +1006,11 @@ function setFontSize(size) {
 function initAvatar() {
   if (typeof Avatar !== 'undefined') {
     Avatar.init('avatarMount');
-
-    // Wire up viseme callback
     voiceover.onViseme = (viseme) => {
       if (Avatar.visible) Avatar.setViseme(viseme);
     };
-
-    // Wire up speaking state
     voiceover.onSpeakingChange = (isSpeaking) => {
-      if (Avatar.visible) {
-        Avatar.setSpeaking(isSpeaking);
-      }
+      if (Avatar.visible) Avatar.setSpeaking(isSpeaking);
     };
   }
 }
@@ -762,11 +1028,22 @@ function toggleAvatar() {
 
 // --- Keyboard Navigation ---
 function handleKeyboard(e) {
-  // Close modal on Escape when it's open
   if (e.key === 'Escape') {
     const settingsPanel = document.getElementById('settingsPanel');
     if (settingsPanel && settingsPanel.classList.contains('active')) {
       toggleSettings();
+      return;
+    }
+    // Close auth modal
+    const authOverlay = document.getElementById('authOverlay');
+    if (authOverlay && authOverlay.classList.contains('active')) {
+      hideAuthModal();
+      return;
+    }
+    // Close paywall
+    const paywallOverlay = document.getElementById('paywallOverlay');
+    if (paywallOverlay && paywallOverlay.classList.contains('active')) {
+      Paywall.hide();
       return;
     }
     const pres = document.getElementById('presentationMode');
@@ -807,7 +1084,7 @@ function handleKeyboard(e) {
   }
 }
 
-// --- Touch/Swipe Support for Presentation ---
+// --- Touch/Swipe Support ---
 let touchStartX = 0;
 let touchStartY = 0;
 document.addEventListener('touchstart', (e) => {
