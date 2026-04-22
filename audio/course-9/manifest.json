@@ -1,0 +1,390 @@
+{
+  "courseId": 9,
+  "engine": "piper",
+  "slides": [
+    {
+      "slide": 0,
+      "type": "title",
+      "module": null,
+      "file": "course-9/slide-0.mp3",
+      "chars": 234,
+      "engine": "piper"
+    },
+    {
+      "slide": 1,
+      "type": "introduction",
+      "module": null,
+      "file": "course-9/slide-1.mp3",
+      "chars": 549,
+      "engine": "piper"
+    },
+    {
+      "slide": 2,
+      "type": "outcomes",
+      "module": null,
+      "file": "course-9/slide-2.mp3",
+      "chars": 798,
+      "engine": "piper"
+    },
+    {
+      "slide": 3,
+      "type": "roadmap",
+      "module": null,
+      "file": "course-9/slide-3.mp3",
+      "chars": 347,
+      "engine": "piper"
+    },
+    {
+      "slide": 4,
+      "type": "module-overview",
+      "module": 1,
+      "file": "course-9/slide-4.mp3",
+      "chars": 783,
+      "engine": "piper"
+    },
+    {
+      "slide": 5,
+      "type": "key-insights",
+      "module": 1,
+      "file": "course-9/slide-5.mp3",
+      "chars": 477,
+      "engine": "piper"
+    },
+    {
+      "slide": 6,
+      "type": "quiz",
+      "module": 1,
+      "file": "course-9/slide-6.mp3",
+      "chars": 175,
+      "engine": "piper"
+    },
+    {
+      "slide": 7,
+      "type": "fun-fact",
+      "module": 1,
+      "file": "course-9/slide-7.mp3",
+      "chars": 198,
+      "engine": "piper"
+    },
+    {
+      "slide": 8,
+      "type": "exercise",
+      "module": 1,
+      "file": "course-9/slide-8.mp3",
+      "chars": 453,
+      "engine": "piper"
+    },
+    {
+      "slide": 9,
+      "type": "reflection",
+      "module": 1,
+      "file": "course-9/slide-9.mp3",
+      "chars": 235,
+      "engine": "piper"
+    },
+    {
+      "slide": 10,
+      "type": "module-complete",
+      "module": 1,
+      "file": "course-9/slide-10.mp3",
+      "chars": 151,
+      "engine": "piper"
+    },
+    {
+      "slide": 11,
+      "type": "module-overview",
+      "module": 2,
+      "file": "course-9/slide-11.mp3",
+      "chars": 777,
+      "engine": "piper"
+    },
+    {
+      "slide": 12,
+      "type": "key-insights",
+      "module": 2,
+      "file": "course-9/slide-12.mp3",
+      "chars": 494,
+      "engine": "piper"
+    },
+    {
+      "slide": 13,
+      "type": "quiz",
+      "module": 2,
+      "file": "course-9/slide-13.mp3",
+      "chars": 182,
+      "engine": "piper"
+    },
+    {
+      "slide": 14,
+      "type": "fun-fact",
+      "module": 2,
+      "file": "course-9/slide-14.mp3",
+      "chars": 199,
+      "engine": "piper"
+    },
+    {
+      "slide": 15,
+      "type": "exercise",
+      "module": 2,
+      "file": "course-9/slide-15.mp3",
+      "chars": 490,
+      "engine": "piper"
+    },
+    {
+      "slide": 16,
+      "type": "reflection",
+      "module": 2,
+      "file": "course-9/slide-16.mp3",
+      "chars": 244,
+      "engine": "piper"
+    },
+    {
+      "slide": 17,
+      "type": "module-complete",
+      "module": 2,
+      "file": "course-9/slide-17.mp3",
+      "chars": 158,
+      "engine": "piper"
+    },
+    {
+      "slide": 18,
+      "type": "module-overview",
+      "module": 3,
+      "file": "course-9/slide-18.mp3",
+      "chars": 758,
+      "engine": "piper"
+    },
+    {
+      "slide": 19,
+      "type": "key-insights",
+      "module": 3,
+      "file": "course-9/slide-19.mp3",
+      "chars": 494,
+      "engine": "piper"
+    },
+    {
+      "slide": 20,
+      "type": "quiz",
+      "module": 3,
+      "file": "course-9/slide-20.mp3",
+      "chars": 182,
+      "engine": "piper"
+    },
+    {
+      "slide": 21,
+      "type": "fun-fact",
+      "module": 3,
+      "file": "course-9/slide-21.mp3",
+      "chars": 199,
+      "engine": "piper"
+    },
+    {
+      "slide": 22,
+      "type": "exercise",
+      "module": 3,
+      "file": "course-9/slide-22.mp3",
+      "chars": 514,
+      "engine": "piper"
+    },
+    {
+      "slide": 23,
+      "type": "reflection",
+      "module": 3,
+      "file": "course-9/slide-23.mp3",
+      "chars": 224,
+      "engine": "piper"
+    },
+    {
+      "slide": 24,
+      "type": "module-complete",
+      "module": 3,
+      "file": "course-9/slide-24.mp3",
+      "chars": 151,
+      "engine": "piper"
+    },
+    {
+      "slide": 25,
+      "type": "module-overview",
+      "module": 4,
+      "file": "course-9/slide-25.mp3",
+      "chars": 769,
+      "engine": "piper"
+    },
+    {
+      "slide": 26,
+      "type": "key-insights",
+      "module": 4,
+      "file": "course-9/slide-26.mp3",
+      "chars": 495,
+      "engine": "piper"
+    },
+    {
+      "slide": 27,
+      "type": "quiz",
+      "module": 4,
+      "file": "course-9/slide-27.mp3",
+      "chars": 175,
+      "engine": "piper"
+    },
+    {
+      "slide": 28,
+      "type": "fun-fact",
+      "module": 4,
+      "file": "course-9/slide-28.mp3",
+      "chars": 204,
+      "engine": "piper"
+    },
+    {
+      "slide": 29,
+      "type": "exercise",
+      "module": 4,
+      "file": "course-9/slide-29.mp3",
+      "chars": 553,
+      "engine": "piper"
+    },
+    {
+      "slide": 30,
+      "type": "reflection",
+      "module": 4,
+      "file": "course-9/slide-30.mp3",
+      "chars": 218,
+      "engine": "piper"
+    },
+    {
+      "slide": 31,
+      "type": "module-complete",
+      "module": 4,
+      "file": "course-9/slide-31.mp3",
+      "chars": 148,
+      "engine": "piper"
+    },
+    {
+      "slide": 32,
+      "type": "module-overview",
+      "module": 5,
+      "file": "course-9/slide-32.mp3",
+      "chars": 825,
+      "engine": "piper"
+    },
+    {
+      "slide": 33,
+      "type": "key-insights",
+      "module": 5,
+      "file": "course-9/slide-33.mp3",
+      "chars": 526,
+      "engine": "piper"
+    },
+    {
+      "slide": 34,
+      "type": "quiz",
+      "module": 5,
+      "file": "course-9/slide-34.mp3",
+      "chars": 179,
+      "engine": "piper"
+    },
+    {
+      "slide": 35,
+      "type": "fun-fact",
+      "module": 5,
+      "file": "course-9/slide-35.mp3",
+      "chars": 210,
+      "engine": "piper"
+    },
+    {
+      "slide": 36,
+      "type": "exercise",
+      "module": 5,
+      "file": "course-9/slide-36.mp3",
+      "chars": 551,
+      "engine": "piper"
+    },
+    {
+      "slide": 37,
+      "type": "reflection",
+      "module": 5,
+      "file": "course-9/slide-37.mp3",
+      "chars": 241,
+      "engine": "piper"
+    },
+    {
+      "slide": 38,
+      "type": "module-complete",
+      "module": 5,
+      "file": "course-9/slide-38.mp3",
+      "chars": 151,
+      "engine": "piper"
+    },
+    {
+      "slide": 39,
+      "type": "module-overview",
+      "module": 6,
+      "file": "course-9/slide-39.mp3",
+      "chars": 842,
+      "engine": "piper"
+    },
+    {
+      "slide": 40,
+      "type": "key-insights",
+      "module": 6,
+      "file": "course-9/slide-40.mp3",
+      "chars": 516,
+      "engine": "piper"
+    },
+    {
+      "slide": 41,
+      "type": "quiz",
+      "module": 6,
+      "file": "course-9/slide-41.mp3",
+      "chars": 178,
+      "engine": "piper"
+    },
+    {
+      "slide": 42,
+      "type": "fun-fact",
+      "module": 6,
+      "file": "course-9/slide-42.mp3",
+      "chars": 210,
+      "engine": "piper"
+    },
+    {
+      "slide": 43,
+      "type": "exercise",
+      "module": 6,
+      "file": "course-9/slide-43.mp3",
+      "chars": 595,
+      "engine": "piper"
+    },
+    {
+      "slide": 44,
+      "type": "reflection",
+      "module": 6,
+      "file": "course-9/slide-44.mp3",
+      "chars": 240,
+      "engine": "piper"
+    },
+    {
+      "slide": 45,
+      "type": "module-complete",
+      "module": 6,
+      "file": "course-9/slide-45.mp3",
+      "chars": 160,
+      "engine": "piper"
+    },
+    {
+      "slide": 46,
+      "type": "takeaways",
+      "module": null,
+      "file": "course-9/slide-46.mp3",
+      "chars": 800,
+      "engine": "piper"
+    },
+    {
+      "slide": 47,
+      "type": "complete",
+      "module": null,
+      "file": "course-9/slide-47.mp3",
+      "chars": 293,
+      "engine": "piper"
+    }
+  ]
+}

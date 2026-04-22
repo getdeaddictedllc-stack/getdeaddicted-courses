@@ -1,0 +1,502 @@
+{
+  "courseId": 22,
+  "engine": "piper",
+  "slides": [
+    {
+      "slide": 0,
+      "type": "title",
+      "module": null,
+      "file": "course-22/slide-0.mp3",
+      "chars": 225,
+      "engine": "piper"
+    },
+    {
+      "slide": 1,
+      "type": "introduction",
+      "module": null,
+      "file": "course-22/slide-1.mp3",
+      "chars": 697,
+      "engine": "piper"
+    },
+    {
+      "slide": 2,
+      "type": "outcomes",
+      "module": null,
+      "file": "course-22/slide-2.mp3",
+      "chars": 691,
+      "engine": "piper"
+    },
+    {
+      "slide": 3,
+      "type": "roadmap",
+      "module": null,
+      "file": "course-22/slide-3.mp3",
+      "chars": 483,
+      "engine": "piper"
+    },
+    {
+      "slide": 4,
+      "type": "module-overview",
+      "module": 1,
+      "file": "course-22/slide-4.mp3",
+      "chars": 613,
+      "engine": "piper"
+    },
+    {
+      "slide": 5,
+      "type": "key-insights",
+      "module": 1,
+      "file": "course-22/slide-5.mp3",
+      "chars": 615,
+      "engine": "piper"
+    },
+    {
+      "slide": 6,
+      "type": "quiz",
+      "module": 1,
+      "file": "course-22/slide-6.mp3",
+      "chars": 186,
+      "engine": "piper"
+    },
+    {
+      "slide": 7,
+      "type": "fun-fact",
+      "module": 1,
+      "file": "course-22/slide-7.mp3",
+      "chars": 237,
+      "engine": "piper"
+    },
+    {
+      "slide": 8,
+      "type": "exercise",
+      "module": 1,
+      "file": "course-22/slide-8.mp3",
+      "chars": 569,
+      "engine": "piper"
+    },
+    {
+      "slide": 9,
+      "type": "reflection",
+      "module": 1,
+      "file": "course-22/slide-9.mp3",
+      "chars": 224,
+      "engine": "piper"
+    },
+    {
+      "slide": 10,
+      "type": "module-complete",
+      "module": 1,
+      "file": "course-22/slide-10.mp3",
+      "chars": 166,
+      "engine": "piper"
+    },
+    {
+      "slide": 11,
+      "type": "module-overview",
+      "module": 2,
+      "file": "course-22/slide-11.mp3",
+      "chars": 635,
+      "engine": "piper"
+    },
+    {
+      "slide": 12,
+      "type": "key-insights",
+      "module": 2,
+      "file": "course-22/slide-12.mp3",
+      "chars": 578,
+      "engine": "piper"
+    },
+    {
+      "slide": 13,
+      "type": "quiz",
+      "module": 2,
+      "file": "course-22/slide-13.mp3",
+      "chars": 186,
+      "engine": "piper"
+    },
+    {
+      "slide": 14,
+      "type": "fun-fact",
+      "module": 2,
+      "file": "course-22/slide-14.mp3",
+      "chars": 231,
+      "engine": "piper"
+    },
+    {
+      "slide": 15,
+      "type": "exercise",
+      "module": 2,
+      "file": "course-22/slide-15.mp3",
+      "chars": 613,
+      "engine": "piper"
+    },
+    {
+      "slide": 16,
+      "type": "reflection",
+      "module": 2,
+      "file": "course-22/slide-16.mp3",
+      "chars": 246,
+      "engine": "piper"
+    },
+    {
+      "slide": 17,
+      "type": "module-complete",
+      "module": 2,
+      "file": "course-22/slide-17.mp3",
+      "chars": 153,
+      "engine": "piper"
+    },
+    {
+      "slide": 18,
+      "type": "module-overview",
+      "module": 3,
+      "file": "course-22/slide-18.mp3",
+      "chars": 607,
+      "engine": "piper"
+    },
+    {
+      "slide": 19,
+      "type": "key-insights",
+      "module": 3,
+      "file": "course-22/slide-19.mp3",
+      "chars": 597,
+      "engine": "piper"
+    },
+    {
+      "slide": 20,
+      "type": "quiz",
+      "module": 3,
+      "file": "course-22/slide-20.mp3",
+      "chars": 173,
+      "engine": "piper"
+    },
+    {
+      "slide": 21,
+      "type": "fun-fact",
+      "module": 3,
+      "file": "course-22/slide-21.mp3",
+      "chars": 231,
+      "engine": "piper"
+    },
+    {
+      "slide": 22,
+      "type": "exercise",
+      "module": 3,
+      "file": "course-22/slide-22.mp3",
+      "chars": 625,
+      "engine": "piper"
+    },
+    {
+      "slide": 23,
+      "type": "reflection",
+      "module": 3,
+      "file": "course-22/slide-23.mp3",
+      "chars": 233,
+      "engine": "piper"
+    },
+    {
+      "slide": 24,
+      "type": "module-complete",
+      "module": 3,
+      "file": "course-22/slide-24.mp3",
+      "chars": 157,
+      "engine": "piper"
+    },
+    {
+      "slide": 25,
+      "type": "module-overview",
+      "module": 4,
+      "file": "course-22/slide-25.mp3",
+      "chars": 643,
+      "engine": "piper"
+    },
+    {
+      "slide": 26,
+      "type": "key-insights",
+      "module": 4,
+      "file": "course-22/slide-26.mp3",
+      "chars": 689,
+      "engine": "piper"
+    },
+    {
+      "slide": 27,
+      "type": "quiz",
+      "module": 4,
+      "file": "course-22/slide-27.mp3",
+      "chars": 190,
+      "engine": "piper"
+    },
+    {
+      "slide": 28,
+      "type": "fun-fact",
+      "module": 4,
+      "file": "course-22/slide-28.mp3",
+      "chars": 279,
+      "engine": "piper"
+    },
+    {
+      "slide": 29,
+      "type": "exercise",
+      "module": 4,
+      "file": "course-22/slide-29.mp3",
+      "chars": 674,
+      "engine": "piper"
+    },
+    {
+      "slide": 30,
+      "type": "reflection",
+      "module": 4,
+      "file": "course-22/slide-30.mp3",
+      "chars": 250,
+      "engine": "piper"
+    },
+    {
+      "slide": 31,
+      "type": "module-complete",
+      "module": 4,
+      "file": "course-22/slide-31.mp3",
+      "chars": 163,
+      "engine": "piper"
+    },
+    {
+      "slide": 32,
+      "type": "module-overview",
+      "module": 5,
+      "file": "course-22/slide-32.mp3",
+      "chars": 672,
+      "engine": "piper"
+    },
+    {
+      "slide": 33,
+      "type": "key-insights",
+      "module": 5,
+      "file": "course-22/slide-33.mp3",
+      "chars": 631,
+      "engine": "piper"
+    },
+    {
+      "slide": 34,
+      "type": "quiz",
+      "module": 5,
+      "file": "course-22/slide-34.mp3",
+      "chars": 179,
+      "engine": "piper"
+    },
+    {
+      "slide": 35,
+      "type": "fun-fact",
+      "module": 5,
+      "file": "course-22/slide-35.mp3",
+      "chars": 237,
+      "engine": "piper"
+    },
+    {
+      "slide": 36,
+      "type": "exercise",
+      "module": 5,
+      "file": "course-22/slide-36.mp3",
+      "chars": 656,
+      "engine": "piper"
+    },
+    {
+      "slide": 37,
+      "type": "reflection",
+      "module": 5,
+      "file": "course-22/slide-37.mp3",
+      "chars": 224,
+      "engine": "piper"
+    },
+    {
+      "slide": 38,
+      "type": "module-complete",
+      "module": 5,
+      "file": "course-22/slide-38.mp3",
+      "chars": 166,
+      "engine": "piper"
+    },
+    {
+      "slide": 39,
+      "type": "module-overview",
+      "module": 6,
+      "file": "course-22/slide-39.mp3",
+      "chars": 631,
+      "engine": "piper"
+    },
+    {
+      "slide": 40,
+      "type": "key-insights",
+      "module": 6,
+      "file": "course-22/slide-40.mp3",
+      "chars": 576,
+      "engine": "piper"
+    },
+    {
+      "slide": 41,
+      "type": "quiz",
+      "module": 6,
+      "file": "course-22/slide-41.mp3",
+      "chars": 193,
+      "engine": "piper"
+    },
+    {
+      "slide": 42,
+      "type": "fun-fact",
+      "module": 6,
+      "file": "course-22/slide-42.mp3",
+      "chars": 221,
+      "engine": "piper"
+    },
+    {
+      "slide": 43,
+      "type": "exercise",
+      "module": 6,
+      "file": "course-22/slide-43.mp3",
+      "chars": 619,
+      "engine": "piper"
+    },
+    {
+      "slide": 44,
+      "type": "reflection",
+      "module": 6,
+      "file": "course-22/slide-44.mp3",
+      "chars": 255,
+      "engine": "piper"
+    },
+    {
+      "slide": 45,
+      "type": "module-complete",
+      "module": 6,
+      "file": "course-22/slide-45.mp3",
+      "chars": 176,
+      "engine": "piper"
+    },
+    {
+      "slide": 46,
+      "type": "module-overview",
+      "module": 7,
+      "file": "course-22/slide-46.mp3",
+      "chars": 664,
+      "engine": "piper"
+    },
+    {
+      "slide": 47,
+      "type": "key-insights",
+      "module": 7,
+      "file": "course-22/slide-47.mp3",
+      "chars": 617,
+      "engine": "piper"
+    },
+    {
+      "slide": 48,
+      "type": "quiz",
+      "module": 7,
+      "file": "course-22/slide-48.mp3",
+      "chars": 189,
+      "engine": "piper"
+    },
+    {
+      "slide": 49,
+      "type": "fun-fact",
+      "module": 7,
+      "file": "course-22/slide-49.mp3",
+      "chars": 228,
+      "engine": "piper"
+    },
+    {
+      "slide": 50,
+      "type": "exercise",
+      "module": 7,
+      "file": "course-22/slide-50.mp3",
+      "chars": 670,
+      "engine": "piper"
+    },
+    {
+      "slide": 51,
+      "type": "reflection",
+      "module": 7,
+      "file": "course-22/slide-51.mp3",
+      "chars": 251,
+      "engine": "piper"
+    },
+    {
+      "slide": 52,
+      "type": "module-complete",
+      "module": 7,
+      "file": "course-22/slide-52.mp3",
+      "chars": 174,
+      "engine": "piper"
+    },
+    {
+      "slide": 53,
+      "type": "module-overview",
+      "module": 8,
+      "file": "course-22/slide-53.mp3",
+      "chars": 659,
+      "engine": "piper"
+    },
+    {
+      "slide": 54,
+      "type": "key-insights",
+      "module": 8,
+      "file": "course-22/slide-54.mp3",
+      "chars": 690,
+      "engine": "piper"
+    },
+    {
+      "slide": 55,
+      "type": "quiz",
+      "module": 8,
+      "file": "course-22/slide-55.mp3",
+      "chars": 191,
+      "engine": "piper"
+    },
+    {
+      "slide": 56,
+      "type": "fun-fact",
+      "module": 8,
+      "file": "course-22/slide-56.mp3",
+      "chars": 268,
+      "engine": "piper"
+    },
+    {
+      "slide": 57,
+      "type": "exercise",
+      "module": 8,
+      "file": "course-22/slide-57.mp3",
+      "chars": 637,
+      "engine": "piper"
+    },
+    {
+      "slide": 58,
+      "type": "reflection",
+      "module": 8,
+      "file": "course-22/slide-58.mp3",
+      "chars": 218,
+      "engine": "piper"
+    },
+    {
+      "slide": 59,
+      "type": "module-complete",
+      "module": 8,
+      "file": "course-22/slide-59.mp3",
+      "chars": 173,
+      "engine": "piper"
+    },
+    {
+      "slide": 60,
+      "type": "takeaways",
+      "module": null,
+      "file": "course-22/slide-60.mp3",
+      "chars": 693,
+      "engine": "piper"
+    },
+    {
+      "slide": 61,
+      "type": "complete",
+      "module": null,
+      "file": "course-22/slide-61.mp3",
+      "chars": 290,
+      "engine": "piper"
+    }
+  ]
+}
