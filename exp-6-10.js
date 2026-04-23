@@ -648,4 +648,4 @@ function getExp_6_10() {
   };
 }
 
-module.exports = { getExp_6_10 };
+if (typeof module !== "undefined") module.exports = { getExp_6_10 };

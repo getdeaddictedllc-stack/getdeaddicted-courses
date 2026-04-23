@@ -730,4 +730,4 @@ function getExp_1_5() {
   };
 }
 
-module.exports = { getExp_1_5 };
+if (typeof module !== "undefined") module.exports = { getExp_1_5 };
