@@ -70,7 +70,7 @@ echo "   index.html updated with single bundle"
 
 echo "4/6  Generating Service Worker..."
 cat > "$DIST/sw.js" << 'SWEOF'
-const CACHE_NAME = 'gda-v1';
+const CACHE_NAME = 'gda-v2';
 const PRECACHE = [
   '/',
   '/index.html',
